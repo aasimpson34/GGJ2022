@@ -5,10 +5,62 @@ package inventorysystem;
  * 
  * Should it also be responsible for managing the passive resources.
  * 
- * @author aasim
+ * TODO: 	potentially if we're going to expand the things the player can have in their inventory 
+ * 			then we may need to change this systsem where the resource is handled in a different
+ * 			class.
+ * 
+ * @author Aaron Simpson
  *
  */
 public class InventorySystem {
 	
-	int m_numberOfWoodResource;
+	int m_currentInventoryNumber[];
+	
+	/**
+	 * Inventory System Constructor
+	 */
+	public InventorySystem()
+	{
+		//Create integer for every type of resource available
+		m_currentInventoryNumber = new int[RESOURCE_TYPES.E_MAX_COUNT.getValue()];
+		
+		//Set Initial resources to 0.
+		for(int x = 0; x < RESOURCE_TYPES.E_MAX_COUNT.getValue(); x++)
+		{
+			m_currentInventoryNumber[x] = 0;
+		}
+	}
+	
+	/**
+	 * Increment the resource
+	 * @param type
+	 * @param amount
+	 */
+	public void incrementResource(RESOURCE_TYPES type, int amount)
+	{
+		m_currentInventoryNumber[type.getValue()] += amount;
+	}
+	
+	/**
+	 * Decrement the specified resource
+	 * @param type
+	 * @param amount
+	 */
+	public void decrementResource(RESOURCE_TYPES type, int amount)
+	{
+		m_currentInventoryNumber[type.getValue()] -= amount;
+	}
+	
+	/**
+	 * Returns the resource.
+	 * @param type
+	 * @return
+	 */
+	public int getResourceCount(RESOURCE_TYPES type)
+	{
+		return type.getValue();
+	}
+	
+	
+
 }
