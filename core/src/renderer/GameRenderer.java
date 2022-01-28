@@ -8,6 +8,10 @@ public class GameRenderer {
 	
 	static GameRenderer m_instance;
 	
+	/**
+	 * get the statically defined instance.
+	 * @return
+	 */
 	public static GameRenderer getInstance()
 	{
 		if(m_instance == null)
@@ -15,11 +19,18 @@ public class GameRenderer {
 		return m_instance;
 	}
 	
+	/**
+	 * Constructor
+	 */
 	public GameRenderer()
 	{
 		m_spriteBatch = new SpriteBatch();
 	}
 	
+	/**
+	 * Get the batch
+	 * @return
+	 */
 	public SpriteBatch getBatch()
 	{
 		return m_spriteBatch;
