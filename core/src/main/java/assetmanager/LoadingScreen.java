@@ -32,6 +32,7 @@ public class LoadingScreen{
 		temporaryBitmapFont = new BitmapFont();
 		
 		m_assetManager.load("world_atlas.atlas",TextureAtlas.class);
+		m_assetManager.load("player.atlas",TextureAtlas.class);
 
 	}
 	
