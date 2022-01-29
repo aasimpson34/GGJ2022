@@ -69,13 +69,14 @@ public class TownEntity {
 			TownResources resource = this.resources[i];
 			
 			int currentTime = resource.getCurrentTime();
-			resource.setCurrentTime(currentTime - 1000); // Decrease time by 1 second
+			resource.setCurrentTime(currentTime - 100);
 			
-			if(resource.getCurrentTime() == 0) {
+			if(resource.getCurrentTime() <= 0) {
 				resource.setAmount(resource.getResourceRate());
 				resource.setCurrentTime(resource.getResourceTime());
-				continue;
-			}	
+			}
+			
+			this.resources[i] = resource;
 		}
 	}
 	
@@ -96,52 +97,61 @@ public class TownEntity {
 	// * INI - Resource Management
 	public void createResources(RESOURCE_TYPES type, int x) {
 		TownResources resource = new TownResources(type, x);
-		resources[type.getValue()] = resource;
+		this.resources[type.getValue()] = resource;
 	}
 	
 	public void setWorkers(RESOURCE_TYPES search, int x) {
 		int id = search.getValue();
-		resources[id].setWorkers(x);
+		this.resources[id].setWorkers(x);
 	}
 	public int getWorkers(RESOURCE_TYPES search) {
 		int id = search.getValue();
-		return resources[id].getWorkers();
+		return this.resources[id].getWorkers();
 	}
 	
 	public void setResourceLimit(RESOURCE_TYPES search, int x) {
 		int id = search.getValue();
-		resources[id].setResourceLimit(x);
+		this.resources[id].setResourceLimit(x);
 	}
 	public int getResourceLimit(RESOURCE_TYPES search) {
 		int id = search.getValue();
-		return resources[id].getResourceLimit();
+		return this.resources[id].getResourceLimit();
 	}
 	
 	public void setResourceTime(RESOURCE_TYPES search, int x) {
 		int id = search.getValue();
-		resources[id].setResourceTime(x);
+		this.resources[id].setResourceTime(x);
 	}
 	public int getResourceTime(RESOURCE_TYPES search) {
 		int id = search.getValue();
-		return resources[id].getResourceTime();
+		return this.resources[id].getResourceTime();
+	}
+	
+	public void setResourceCurrentTime(RESOURCE_TYPES search, int x) {
+		int id = search.getValue();
+		this.resources[id].setCurrentTime(x);
+	}
+	public int getResourceCurrentTime(RESOURCE_TYPES search) {
+		int id = search.getValue();
+		return this.resources[id].getCurrentTime();
 	}
 	
 	public void setResourceRate(RESOURCE_TYPES search, int x) {
 		int id = search.getValue();
-		resources[id].setResourceRate(x);
+		this.resources[id].setResourceRate(x);
 	}
 	public int getResourceRate(RESOURCE_TYPES search) {
 		int id = search.getValue();
-		return resources[id].getResourceRate();
+		return this.resources[id].getResourceRate();
 	}
 	
 	public void setResourceAmount(RESOURCE_TYPES search, int amount) {
 		int id = search.getValue();
-		resources[id].setAmount(amount);
+		this.resources[id].setAmount(amount);
 	}
 	public TownResources getResource(RESOURCE_TYPES search) {
 		int id = search.getValue();
-		return resources[id];
+		return this.resources[id];
 	}
 	public TownResources[] getAllResources() { return this.resources; }
 	// * END - Resource Management
