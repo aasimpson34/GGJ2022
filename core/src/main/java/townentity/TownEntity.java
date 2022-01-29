@@ -31,13 +31,14 @@ public class TownEntity {
 	private int positionX;
 	private int positionY;
 	
-	private List<TownResources> resources;
+	private TownResources[] resources;
 	
 	public TownEntity(int x, int y) {
 		this.positionX = x;
 		this.positionY = y;
 		
-		resources = new ArrayList<TownResources>();
+		int maxResources = RESOURCE_TYPES.E_MAX_COUNT.getValue();
+		resources = new TownResources[maxResources];
 	}
 	
 	public void render() {
@@ -109,7 +110,7 @@ public class TownEntity {
 			}
 		}
 	}
-	public List<TownResources> getAllResources() { return this.resources; }
+	public TownResources[] getAllResources() { return this.resources; }
 	
 	public int getPopulation() { return this.population; }
     public void setPopulation(int x) {

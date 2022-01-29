@@ -3,7 +3,6 @@ package townentity;
 import inventorysystem.RESOURCE_TYPES;
 
 public class TownResources {
-
 	private RESOURCE_TYPES resourceType;
 	private int resourceLimit;
 	private int resourceTime;
