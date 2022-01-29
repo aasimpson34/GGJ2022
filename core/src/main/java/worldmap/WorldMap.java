@@ -40,13 +40,13 @@ public class WorldMap {
 		}
 	}
 	
-	public void update(PlayerEntity m_playerEntity)
+	public void update(PlayerEntity playerEntity)
 	{
 		for(int x = 0; x < 3; x++)
 		{
 			for(int y = 0; y < 3; y++)
 			{
-				m_activeChunks[x][y].update();
+				m_activeChunks[x][y].update(playerEntity);
 			}
 		}
 		
@@ -57,7 +57,7 @@ public class WorldMap {
 			//move chunks to the right
 			centreChunk.x--;
 			moveLeft(1);
-			m_playerEntity.getPosition().x += 2048;
+			playerEntity.getPosition().x += 2048;
 			GameCamera.getInstance().translate(2048,(int) GameCamera.getInstance().getPosition().y);
 			hasMoved = true;
 
@@ -67,7 +67,7 @@ public class WorldMap {
 			//move chunks to the right
 			centreChunk.x++;
 			moveRight(1);
-			m_playerEntity.getPosition().x -= 2048;
+			playerEntity.getPosition().x -= 2048;
 			GameCamera.getInstance().translate(0,(int) GameCamera.getInstance().getPosition().y);
 			hasMoved = true;
 		}
@@ -77,7 +77,7 @@ public class WorldMap {
 			//move chunks to the right
 			centreChunk.y++;
 			moveDown(1);
-			m_playerEntity.getPosition().y -= 1504;
+			playerEntity.getPosition().y -= 1504;
 			GameCamera.getInstance().translate((int) GameCamera.getInstance().getPosition().x, 0);
 			hasMoved = true;
 		}
@@ -87,7 +87,7 @@ public class WorldMap {
 			//move chunks to the right
 			centreChunk.y--;
 			moveUp(1);
-			m_playerEntity.getPosition().y += 1504;
+			playerEntity.getPosition().y += 1504;
 			GameCamera.getInstance().translate((int) GameCamera.getInstance().getPosition().x, 1504);
 			hasMoved = true;
 		}
