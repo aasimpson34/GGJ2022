@@ -4,7 +4,8 @@ public enum TOWN_TYPES {
 	T_CAMP(0),
 	T_VILLAGE(1),
 	T_STRONGHOLD(2),
-	T_FORTRESS(3);
+	
+	E_MAX_COUNT(T_STRONGHOLD.getValue() + 1);
 	
 	private final int id;
 	TOWN_TYPES(int id) { this.id = id; }
