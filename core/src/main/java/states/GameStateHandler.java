@@ -2,13 +2,19 @@ package states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.utils.Array;
 
+import assetmanager.LoadGameAssetsState;
 import worldmapstate.WorldMapState;
 
 public class GameStateHandler {
+	Array<GameState> m_currentGameStates;
 	
 	public GameStateHandler()
 	{
+		m_currentGameStates = new Array<GameState>();
+		m_currentGameStates.add(new WorldMapState());
+		m_currentGameStates.add(new LoadGameAssetsState());
 	}
 	
 	public void render() {
@@ -21,7 +27,9 @@ public class GameStateHandler {
 	}
 
 	public void update() {
-		m_currentGameState = m_currentGameState.update();
+		GameState gameStateToAdd = m_currentGameStates.peek().update();
+		if(gameStateToAdd == null)
+		{
 			m_currentGameStates.pop();
 		}
 	}
