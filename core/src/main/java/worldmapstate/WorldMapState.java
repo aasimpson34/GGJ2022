@@ -38,6 +38,7 @@ public class WorldMapState implements GameState {
 		
 		GameCamera.getInstance().moveTo(m_playerEntity.getPosition().x, m_playerEntity.getPosition().y, 0.01F);
 		m_worldMap.update(m_playerEntity);
+		m_playerEntity.updateMovement(m_worldMap);
 		return this;
 	}
 
