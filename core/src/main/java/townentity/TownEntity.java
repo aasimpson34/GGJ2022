@@ -52,7 +52,6 @@ public class TownEntity {
 	}
 	public void renderTown(int xOffset, int yOffset) {
 		int townId = this.townType.getValue() + 1;
-		SpriteBatch batch = GameRenderer.getInstance().getBatch();
 		AtlasRegion town = ResourceLookup.getInstance().getTextureAtlas("world_atlas.atlas").findRegion("town", townId);
 		TileRenderer.renderTile(town, this.positionX, this.positionY, xOffset, yOffset);
 

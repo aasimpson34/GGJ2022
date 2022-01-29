@@ -31,7 +31,6 @@ public class WorldChunk {
 	
 	public void render(int xOffset, int yOffset)
 	{
-		SpriteBatch batch = GameRenderer.getInstance().getBatch();
 		for(int x = 0; x < CHUNK_SIZE; x++)
 		{
 			for(int y = 0; y < CHUNK_SIZE; y++)
