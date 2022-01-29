@@ -40,16 +40,20 @@ public class TownGeneratorHandler {
 			town.createResources(type, 0);
 			
 			int resourceLimit = getResourceLimit(townLevel.getValue());
-			town.setResourceLimit(type, resourceLimit);
+			int resourceTime = getResourceTime(townLevel.getValue());			
+			int resourceRate = getResourceRate(townLevel.getValue());
+			int labourForce = townPopulation / 3;
+			int workers = labourForce / 4;
 			
-			int resourceTime = getResourceTime(townLevel.getValue());
+			if(type == townMainResource) {
+				resourceLimit += 25;
+				resourceRate *= 2;
+			}
+			
+			town.setResourceLimit(type, resourceLimit);
 			town.setResourceTime(type, resourceTime);
 			town.setResourceCurrentTime(type, resourceTime);
-			
-			int workers = townPopulation / 3;
 			town.setWorkers(type, workers);
-			
-			int resourceRate = getResourceRate(townLevel.getValue());
 			town.setResourceRate(type, resourceRate);
 		}
 		
