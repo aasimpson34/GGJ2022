@@ -37,7 +37,6 @@ public class TownEntity {
 	
 	public void render() {
 		System.err.println("TownEntity:render(); not implemented");
-		
 	}
 
 	public boolean update() {
@@ -104,6 +103,7 @@ public class TownEntity {
 			}
 		}
 	}
+	public TownResources[] getAllResources() { return this.resources; }
 	
 	public int getPopulation() { return this.population; }
     public void setPopulation(int x) {

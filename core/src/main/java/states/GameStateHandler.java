@@ -18,7 +18,7 @@ public class GameStateHandler {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); 
 		
 		m_currentGameState.render();
-		System.out.println("render");
+		//System.out.println("render");
 		
 	}
 
