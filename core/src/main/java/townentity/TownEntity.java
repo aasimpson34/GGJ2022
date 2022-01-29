@@ -47,8 +47,12 @@ public class TownEntity {
 	}
 	
 	public void render() {
+		renderTown();
+	}
+	public void renderTown() {
+		int townId = this.townType.getValue() + 1;
 		SpriteBatch batch = GameRenderer.getInstance().getBatch();
-		AtlasRegion town = ResourceLookup.getInstance().getTextureAtlas("world_atlas.atlas").findRegion("sand_dark");
+		AtlasRegion town = ResourceLookup.getInstance().getTextureAtlas("world_atlas.atlas").findRegion("town", townId);
 		batch.draw(town, this.positionX, this.positionY);
 	}
 
@@ -196,10 +200,14 @@ public class TownEntity {
     	System.out.println("reputation: " + this.reputation);
     	System.out.println("resourseType: " + this.mainResource.toString());
     	System.out.println("townType: " + this.townType.toString());
-    	System.out.println("resourceStock - " + this.resources[0].getResourceType().toString() + ": " + this.resources[0].getAmount());
-    	System.out.println("resourceStock - " + this.resources[1].getResourceType().toString() + ": " + this.resources[1].getAmount());
-    	System.out.println("resourceStock - " + this.resources[2].getResourceType().toString() + ": " + this.resources[2].getAmount());
-    	System.out.println("resourceStock - " + this.resources[3].getResourceType().toString() + ": " + this.resources[3].getAmount());
+    	System.out.println("resourceStock - " + this.resources[0].getResourceType().toString() + ": " + this.resources[0].getAmount() + "/" + this.resources[0].getResourceLimit());
+    	System.out.println("resourceStock - " + this.resources[1].getResourceType().toString() + ": " + this.resources[1].getAmount() + "/" + this.resources[1].getResourceLimit());
+    	System.out.println("resourceStock - " + this.resources[2].getResourceType().toString() + ": " + this.resources[2].getAmount() + "/" + this.resources[2].getResourceLimit());
+    	System.out.println("resourceStock - " + this.resources[3].getResourceType().toString() + ": " + this.resources[3].getAmount() + "/" + this.resources[3].getResourceLimit());
+    	System.out.println("resourceRate - " + this.resources[0].getResourceType().toString() + ": " + this.resources[0].getResourceRate());
+    	System.out.println("resourceRate - " + this.resources[1].getResourceType().toString() + ": " + this.resources[1].getResourceRate());
+    	System.out.println("resourceRate - " + this.resources[2].getResourceType().toString() + ": " + this.resources[2].getResourceRate());
+    	System.out.println("resourceRate - " + this.resources[3].getResourceType().toString() + ": " + this.resources[3].getResourceRate());
     	System.out.println("#END# Town Entity - Overview #END#\n");
     }
 }
