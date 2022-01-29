@@ -3,6 +3,17 @@ package townentity;
 import inventorysystem.RESOURCE_TYPES;
 import towngeneration.TOWN_TYPES;
 
+/**
+ * 
+ * @author cullen
+ *
+ * TODO: 
+ * + TEST :(
+ * + create resources on start
+ * + calculate time on each resource
+ *  
+ */
+
 public class TownEntity {
 	private int population;
 	private int populationLimit;
@@ -34,8 +45,13 @@ public class TownEntity {
 		increasePopulation(this.populationSpeed);
 		// Decrease reputation
 		decreaseReputation(this.reputationSpeed);
-		
 		// Increase resources based on time
+		increaseResources();
+		
+		return true;
+	}
+	
+	public void increaseResources() {
 		for(int i = 0; i < this.resources.length; i++) {
 			TownResources resource = this.resources[i];
 			
@@ -47,8 +63,6 @@ public class TownEntity {
 				continue;
 			}	
 		}
-		
-		return true;
 	}
 	
 	public void increasePopulation(int x) {
@@ -65,7 +79,8 @@ public class TownEntity {
 		setReputation(this.reputation -= x);
 	}
 	
-	public TownResources getResource(int id) {
+	public TownResources getResource(RESOURCE_TYPES search) {
+		int id = search.getValue();
 		for(int i = 0; i < this.resources.length; i++) {
 			TownResources resource = this.resources[i];
 			RESOURCE_TYPES type = resource.getResourceType();
@@ -77,7 +92,8 @@ public class TownEntity {
 		
 		return null;
 	}
-	public void setResource(int id, int amount) {
+	public void setResource(RESOURCE_TYPES search, int amount) {
+		int id = search.getValue();
 		for(int i = 0; i < this.resources.length; i++) {
 			TownResources resource = this.resources[i];
 			RESOURCE_TYPES type = resource.getResourceType();
