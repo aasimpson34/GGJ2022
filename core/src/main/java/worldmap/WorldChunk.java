@@ -53,4 +53,11 @@ public class WorldChunk {
 	{
 		
 	}
+
+	/**
+	 * @param townEntities
+	 */
+	public void setTownEntities(Array<TownEntity> townEntities) {
+		m_townEntity = townEntities;		
+	}
 }
