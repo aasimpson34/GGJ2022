@@ -11,14 +11,17 @@ public class TownEntity {
 	private TOWN_TYPES townType;
 	
 	private int reputationMax = 100;
-	private int reputationMin = 0;
 	private int populationSpeed = 1;
 	private int reputationSpeed = 1;
 	
-	public TownEntity() {
-		setPopulation(0);
-		setPopulationLimit(0);
-		setReputation(0);
+	private int positionX;
+	private int positionY;
+	
+	private TownResources[] resources;
+	
+	public TownEntity(int x, int y) {
+		this.positionX = x;
+		this.positionY = y;
 	}
 	
 	public void render() {
@@ -27,8 +30,24 @@ public class TownEntity {
 	}
 
 	public boolean update() {
+		// Increase population
 		increasePopulation(this.populationSpeed);
+		// Decrease reputation
 		decreaseReputation(this.reputationSpeed);
+		
+		// Increase resources based on time
+		for(int i = 0; i < this.resources.length; i++) {
+			TownResources resource = this.resources[i];
+			
+			resource.setCurrentTime(1000); // Decrease time by 1 second
+			
+			if(resource.getCurrentTime() == 0) {
+				resource.setAmount(resource.getResourceRate());
+				resource.setCurrentTime(resource.getResourceTime());
+				continue;
+			}	
+		}
+		
 		return true;
 	}
 	
@@ -46,13 +65,37 @@ public class TownEntity {
 		setReputation(this.reputation -= x);
 	}
 	
+	public TownResources getResource(int id) {
+		for(int i = 0; i < this.resources.length; i++) {
+			TownResources resource = this.resources[i];
+			RESOURCE_TYPES type = resource.getResourceType();
+			
+			if(type.getValue() == id) {
+				return resource;
+			}
+		}
+		
+		return null;
+	}
+	public void setResource(int id, int amount) {
+		for(int i = 0; i < this.resources.length; i++) {
+			TownResources resource = this.resources[i];
+			RESOURCE_TYPES type = resource.getResourceType();
+			
+			if(type.getValue() == id) {
+				resource.setAmount(amount);
+				return;
+			}
+		}
+	}
+	
 	public int getPopulation() { return this.population; }
     public void setPopulation(int x) {
-    	if(this.population > this.populationLimit) {
+    	if(x > this.populationLimit) {
     		this.population = this.populationLimit;
     		return;
     	}
-    	if(this.population < 0) {
+    	if(x < 0) {
     		this.population = 0;
     		return;
     	}
@@ -68,16 +111,16 @@ public class TownEntity {
     
     public int getReputation() { return this.reputation; }
     public void setReputation(int x) {
-    	if(this.reputation > this.reputationMax) {
+    	if(x > this.reputationMax) {
     		this.reputation = this.reputationMax;
     		return;
     	}
-    	if(this.reputation < this.reputationMin) {
-    		this.reputation = this.reputationMin;
+    	if(x < 0) {
+    		this.reputation = 0;
     		return;
     	}
     	
-        this.populationLimit = x;
+        this.reputation = x;
     }
     
     public int getReputationSpeed() { return this.reputationSpeed; }
@@ -88,4 +131,7 @@ public class TownEntity {
     
     public TOWN_TYPES getTownType() { return this.townType; }
     public void setTownType(TOWN_TYPES x) { this.townType = x; }
+    
+    public int getPositionX() { return this.positionX; }
+    public int getPositionY() { return this.positionY; }
 }
