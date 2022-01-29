@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import assetmanager.ResourceLookup;
 import inventorysystem.RESOURCE_TYPES;
 import renderer.GameRenderer;
+import renderer.TileRenderer;
 import towngeneration.TOWN_TYPES;
 import userInterface.TownWorldEntityUI;
 import userInterface.WorldEntityUI;
@@ -53,7 +54,8 @@ public class TownEntity {
 		int townId = this.townType.getValue() + 1;
 		SpriteBatch batch = GameRenderer.getInstance().getBatch();
 		AtlasRegion town = ResourceLookup.getInstance().getTextureAtlas("world_atlas.atlas").findRegion("town", townId);
-		batch.draw(town, this.positionX*64 + (xOffset * 2048), this.positionY*47 + (yOffset * 1504));
+		TileRenderer.renderTile(town, this.positionX, this.positionY, xOffset, yOffset);
+
 	}
 
 	public boolean update() {

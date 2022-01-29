@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Array;
 
 import assetmanager.ResourceLookup;
 import renderer.GameRenderer;
+import renderer.TileRenderer;
 import townentity.TownEntity;
 
 public class WorldChunk {
@@ -15,13 +16,7 @@ public class WorldChunk {
 	int m_yChunkPosition;
 	
 	final int CHUNK_SIZE = 32;
-	final int TILE_X_SIZE = 64;
-	final int HALF_TILE_X_SIZE = 32;
-	final int TILE_Y_SIZE = 47;
 
-	final int TOTAL_CHUNK_WIDTH = TILE_X_SIZE * CHUNK_SIZE;
-	final int TOTAL_CHUNK_HEIGHT = TILE_Y_SIZE * CHUNK_SIZE;
-	
 	
 	int tileId[][] = new int[CHUNK_SIZE][CHUNK_SIZE];
 	
@@ -47,10 +42,7 @@ public class WorldChunk {
 				else if(tileId[x][y] == 1)
 					region = ResourceLookup.getInstance().getTextureAtlas("world_atlas.atlas").findRegion("mountain");
 
-				if(y%2 == 0)
-					batch.draw(region, x * TILE_X_SIZE + HALF_TILE_X_SIZE + (xOffset * TOTAL_CHUNK_WIDTH), y * TILE_Y_SIZE + (yOffset * TOTAL_CHUNK_HEIGHT));
-				else
-					batch.draw(region, x * TILE_X_SIZE + (xOffset * TOTAL_CHUNK_WIDTH), y * TILE_Y_SIZE + (yOffset * TOTAL_CHUNK_HEIGHT));
+				TileRenderer.renderTile(region, x, y, xOffset, yOffset);
 			}
 		}
 		
@@ -62,6 +54,12 @@ public class WorldChunk {
 	{
 		for(TownEntity entity : m_townEntity)
 			entity.update();
+		
+		//Check if the player is within a town entity hex
+			//tell the town that the player is near (draw a prompt)
+			//if the player interacts then tell the town entity to render its
+			// ui.
+		
 	}
 
 	/**
