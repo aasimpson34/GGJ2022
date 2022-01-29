@@ -1,12 +1,22 @@
 package towngeneration;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
+
 import inventorysystem.RESOURCE_TYPES;
 import townentity.TownEntity;
 
 public class TownGeneratorHandler { 
 	
+	private JsonValue config = null;
+	
 	public TownEntity generateNewTown(int x, int y)
 	{
+		if(this.config == null) {
+			this.config = loadConfig();
+		}
+		
 		TownEntity town = new TownEntity(x, y);
 		
 		TOWN_TYPES townLevel = getTownLevel();
@@ -39,10 +49,18 @@ public class TownGeneratorHandler {
 			int workers = townPopulation / 3;
 			town.setWorkers(type, workers);
 			
-			town.setResourceRate(type, 10);
+			int resourceRate = getResourceRate(townLevel.getValue());
+			town.setResourceRate(type, resourceRate);
 		}
 		
 		return town;
+	}
+	
+	private JsonValue loadConfig() {
+		JsonReader json = new JsonReader();
+		JsonValue base = json.parse(Gdx.files.internal("town_config.json"));
+		JsonValue core = base.get("town_config");
+		return core;
 	}
 	
 	private TOWN_TYPES getTownLevel() {
@@ -56,23 +74,25 @@ public class TownGeneratorHandler {
 	}
 	
 	private int getTownPopulationLimit(int type) {
-		switch(type) {
-			case 1:
-				return 50;
-			case 2: 
-				return 75;
-			default:
-				return 25;
-		}
+		return this.config.get(type).getInt("populationLimit");
 	}
 	private int getTownPopulation(int type) {
+		return this.config.get(type).getInt("startingPopulation");
+	}
+	private int getResourceLimit(int type) {
+		return this.config.get(type).getInt("resourceLimit");
+	}
+	private int getResourceRate(int type) {
+		return this.config.get(type).getInt("ratePerWorker");
+	}
+	private int getResourceTime(int type) {
 		switch(type) {
 			case 1:
-				return 35;
+				return 2000;
 			case 2: 
-				return 55;
+				return 1000;
 			default:
-				return 5;
+				return 3000;
 		}
 	}
 	
@@ -87,28 +107,6 @@ public class TownGeneratorHandler {
 				return (int) 50;
 		}
 	}
-	
-	private int getResourceLimit(int type) {
-		switch(type) {
-			case 1:
-				return 75;
-			case 2: 
-				return 100;
-			default:
-				return 50;
-		}
-	}
-	private int getResourceTime(int type) {
-		switch(type) {
-			case 1:
-				return 2000;
-			case 2: 
-				return 1000;
-			default:
-				return 3000;
-		}
-	}
-
 	
 	private int getRandomNumber(int min, int max) {
 		return (int) (Math.random() * (max - min)) + min;
