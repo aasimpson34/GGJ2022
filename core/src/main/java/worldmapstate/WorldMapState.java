@@ -28,6 +28,15 @@ public class WorldMapState implements GameState {
 		TownGeneratorHandler townGenerator = new TownGeneratorHandler();
 		debugTown = townGenerator.generateNewTown(0, 0);
 		//debugTown.debugOverview();
+		
+		debugTown.update();
+		//debugTown.debugOverview();
+		
+		debugTown.update();
+		//debugTown.debugOverview();
+		
+		debugTown.update();
+		//debugTown.debugOverview();
 	}
 	
 	@Override

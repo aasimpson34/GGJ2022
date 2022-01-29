@@ -4,6 +4,7 @@ import inventorysystem.RESOURCE_TYPES;
 
 public class TownResources {
 	private RESOURCE_TYPES resourceType;
+	private boolean isMainType;
 	private int resourceLimit;
 	private int resourceTime;
 	private int recourseRate;
@@ -43,6 +44,11 @@ public class TownResources {
 	
 	public int getCurrentTime() { return this.currentTime; }
 	public void setCurrentTime(int x) { this.currentTime = x; }
+	
+	public void setIsMainType(boolean x) { this.isMainType = x; }
+	public boolean getIsMainType() {
+		return this.isMainType;
+	}
 	
 	public RESOURCE_TYPES getResourceType() { return this.resourceType; }
 }
