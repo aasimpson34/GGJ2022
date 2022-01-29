@@ -40,6 +40,8 @@ public class GameCamera {
 	
 	OrthographicCamera m_gameCameraMatrix;
 	
+	boolean translateCalled;
+	
 	/**
 	 * Constructor 
 	 * Game camera matrix will be initialised here.
@@ -56,10 +58,18 @@ public class GameCamera {
 	public void update()
 	{
 		//Interpolation formula 
+		if(!translateCalled)
+		{
 		float interpolate_amount = (float) (1.0 - Math.pow(1 - m_speedToMoveToPosition * 3.0f, Gdx.graphics.getDeltaTime()* 60));
 		m_gameCameraMatrix.position.x  = Interpolation.linear.apply(m_gameCameraMatrix.position.x, m_targetPosition.x, interpolate_amount);
 		m_gameCameraMatrix.position.y  = Interpolation.linear.apply(m_gameCameraMatrix.position.y, m_targetPosition.y, interpolate_amount);
-		
+		}
+		else
+		{
+			m_gameCameraMatrix.position.x  += m_targetPosition.x;
+			m_gameCameraMatrix.position.y  += m_targetPosition.y;
+			translateCalled = false;
+		}
 		m_gameCameraMatrix.update();
 	}
 	
@@ -89,5 +99,21 @@ public class GameCamera {
 	 */
 	public Matrix4 getProjection() {
 		return m_gameCameraMatrix.combined;
+	}
+
+	/**
+	 * @return
+	 */
+	public Vector2 getPosition() {
+		return new Vector2(m_gameCameraMatrix.position.x, m_gameCameraMatrix.position.y);
+	}
+
+	/**
+	 * @param i
+	 * @param j
+	 */
+	public void translate(int i, int j) {
+		translateCalled = true;
+		m_targetPosition = new Vector2(i,j);
 	}
 }
