@@ -11,13 +11,25 @@ public class TownGeneratorHandler {
 		
 		TOWN_TYPES townLevel = getTownLevel();
 		town.setTownType(townLevel);
+		
 		RESOURCE_TYPES townMainResource = getTownResource();
 		town.setMainResource(townMainResource);
-		int townPopulationLimit = getTownPopulationLimit(townLevel.getValue());
-		int townPopulation = getTownPopulation(townLevel.getValue());
-		int townReputation = getTownReputation();
 		
-		return null;
+		int townPopulationLimit = getTownPopulationLimit(townLevel.getValue());
+		town.setPopulationLimit(townPopulationLimit);
+		
+		int townPopulation = getTownPopulation(townLevel.getValue());
+		town.setPopulation(townPopulation);
+		
+		int townReputation = getTownReputation();
+		town.setReputation(townReputation);
+		
+		int maxResources = RESOURCE_TYPES.E_MAX_COUNT.getValue();
+		for(int i = 0; i < maxResources; i++) {
+			
+		}
+		
+		return town;
 	}
 	
 	private TOWN_TYPES getTownLevel() {
