@@ -11,6 +11,7 @@ package camera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -63,13 +64,19 @@ public class GameCamera {
 		float interpolate_amount = (float) (1.0 - Math.pow(1 - m_speedToMoveToPosition * 3.0f, Gdx.graphics.getDeltaTime()* 60));
 		m_gameCameraMatrix.position.x  = Interpolation.linear.apply(m_gameCameraMatrix.position.x, m_targetPosition.x, interpolate_amount);
 		m_gameCameraMatrix.position.y  = Interpolation.linear.apply(m_gameCameraMatrix.position.y, m_targetPosition.y, interpolate_amount);
+		
+		m_gameCameraMatrix.position.x = MathUtils.round(m_gameCameraMatrix.position.x );
+		m_gameCameraMatrix.position.y = MathUtils.round(m_gameCameraMatrix.position.y );
+		
 		}
 		else
 		{
-			m_gameCameraMatrix.position.x  += m_targetPosition.x;
-			m_gameCameraMatrix.position.y  += m_targetPosition.y;
+			m_gameCameraMatrix.position.x  = m_targetPosition.x;
+			m_gameCameraMatrix.position.y  = m_targetPosition.y;
 			translateCalled = false;
 		}
+		
+
 		m_gameCameraMatrix.update();
 	}
 	
@@ -84,7 +91,7 @@ public class GameCamera {
 	 */
 	public void moveTo(float x, float y, float speed)
 	{
-		m_targetPosition = new Vector2(x, y);
+		m_targetPosition = new Vector2((int)x, (int)y);
 		m_speedToMoveToPosition = speed;
 		
 	}
@@ -115,5 +122,6 @@ public class GameCamera {
 	public void translate(int i, int j) {
 		translateCalled = true;
 		m_targetPosition = new Vector2(i,j);
+		update();
 	}
 }

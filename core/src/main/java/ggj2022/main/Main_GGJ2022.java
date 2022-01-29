@@ -19,8 +19,9 @@ public class Main_GGJ2022 extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		m_gameStateHandler.update();
 		m_gameStateHandler.render();
+		m_gameStateHandler.update();
+
 	}
 	
 	@Override

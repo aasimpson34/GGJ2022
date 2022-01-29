@@ -47,6 +47,7 @@ public class WorldMapState implements GameState {
 		
 		GameCamera.getInstance().moveTo(m_playerEntity.getPosition().x, m_playerEntity.getPosition().y, 0.01F);
 		m_worldMap.update(m_playerEntity);
+		m_playerEntity.updateMovement(m_worldMap);
 		return this;
 	}
 
@@ -54,12 +55,12 @@ public class WorldMapState implements GameState {
 	public void render() {
 		GameRenderer.getInstance().getBatch().setProjectionMatrix(GameCamera.getInstance().getProjection());
 		GameRenderer.getInstance().getBatch().begin();
-		
 		m_worldMap.render();
 		
 		debugTown.render(0, 0);
 		townUI.render();
 				
+	
 		GameObjectEntityHandler.getInstance().render();
 		GameRenderer.getInstance().getBatch().end();
 	}
