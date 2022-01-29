@@ -82,9 +82,11 @@ public class TownEntity {
 	
 	public void increasePopulation(int x) {
 		setPopulation(this.population + x);
+		distributeWorkers();
 	}
 	public void decreasePopulation(int x) {
 		setPopulation(this.population - x);
+		distributeWorkers();
 	}
 	
 	public void increaseReputation(int x) {
@@ -92,6 +94,32 @@ public class TownEntity {
 	}
 	public void decreaseReputation(int x) {
 		setReputation(this.reputation - x);
+	}
+	
+	private void distributeWorkers() {
+		for(int i = 0; i < resources.length; i++) {
+			TownResources el = resources[i];
+			boolean isMainResouce = el.getIsMainType();
+			int population = this.population;
+			int workForce = calculateWorkers(population, isMainResouce);
+			
+			resources[i].setWorkers(workForce);
+		}
+	}
+	private int calculateWorkers(int population, boolean isMainResouce) {
+		int labourForce = population / 2;
+		
+		if(labourForce < 4) {
+			return 0;
+		}
+		if(labourForce == 4) {
+			return 1;
+		}
+		if(isMainResouce) {
+			return (int) Math.ceil((double) labourForce / 4);
+		}
+		
+		return (int) Math.floor((double) labourForce / 4);
 	}
 	
 	// * INI - Resource Management
@@ -156,6 +184,11 @@ public class TownEntity {
 	public TownResources[] getAllResources() { return this.resources; }
 	// * END - Resource Management
 	
+	public void setIsMainResource(RESOURCE_TYPES search, boolean x) {
+		int id = search.getValue();
+		this.resources[id].setIsMainType(x);
+	}
+	
 	public int getPopulation() { return this.population; }
     public void setPopulation(int x) {
     	if(x > this.populationLimit) {
@@ -210,14 +243,13 @@ public class TownEntity {
     	System.out.println("reputation: " + this.reputation);
     	System.out.println("resourseType: " + this.mainResource.toString());
     	System.out.println("townType: " + this.townType.toString());
-    	System.out.println("resourceStock - " + this.resources[0].getResourceType().toString() + ": " + this.resources[0].getAmount() + "/" + this.resources[0].getResourceLimit());
-    	System.out.println("resourceStock - " + this.resources[1].getResourceType().toString() + ": " + this.resources[1].getAmount() + "/" + this.resources[1].getResourceLimit());
-    	System.out.println("resourceStock - " + this.resources[2].getResourceType().toString() + ": " + this.resources[2].getAmount() + "/" + this.resources[2].getResourceLimit());
-    	System.out.println("resourceStock - " + this.resources[3].getResourceType().toString() + ": " + this.resources[3].getAmount() + "/" + this.resources[3].getResourceLimit());
-    	System.out.println("resourceRate - " + this.resources[0].getResourceType().toString() + ": " + this.resources[0].getResourceRate());
-    	System.out.println("resourceRate - " + this.resources[1].getResourceType().toString() + ": " + this.resources[1].getResourceRate());
-    	System.out.println("resourceRate - " + this.resources[2].getResourceType().toString() + ": " + this.resources[2].getResourceRate());
-    	System.out.println("resourceRate - " + this.resources[3].getResourceType().toString() + ": " + this.resources[3].getResourceRate());
+    	for(int i = 0; i < this.resources.length; i++) {
+    		System.out.println("resource - " + this.resources[i].getResourceType().toString() + ": ");
+        	System.out.println("  amount: " + this.resources[i].getAmount() + "/" + this.resources[i].getResourceLimit());
+        	System.out.println("  workers: " + this.resources[i].getWorkers());
+        	System.out.println("  rate: " + this.resources[i].getResourceRate());
+        	System.out.println("  time: " + this.resources[i].getResourceTime());
+    	}    	
     	System.out.println("#END# Town Entity - Overview #END#\n");
     }
 }
