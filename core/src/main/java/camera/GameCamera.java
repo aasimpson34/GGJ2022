@@ -60,7 +60,6 @@ public class GameCamera {
 		m_gameCameraMatrix.position.x  = Interpolation.linear.apply(m_gameCameraMatrix.position.x, m_targetPosition.x, interpolate_amount);
 		m_gameCameraMatrix.position.y  = Interpolation.linear.apply(m_gameCameraMatrix.position.y, m_targetPosition.y, interpolate_amount);
 		
-		System.out.println(m_gameCameraMatrix.position.x );
 		m_gameCameraMatrix.update();
 	}
 	
