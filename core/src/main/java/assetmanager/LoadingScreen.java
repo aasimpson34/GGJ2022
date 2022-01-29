@@ -38,8 +38,7 @@ public class LoadingScreen{
 	public boolean update(){
 		m_loadProgress = m_assetManager.getProgress();
 		
-		System.out.println(m_loadProgress);
-		if(m_assetManager.update()){
+ 		if(m_assetManager.update()){
 			
 			ResourceLookup.getInstance().setAssetManager(m_assetManager);
 			return true;
