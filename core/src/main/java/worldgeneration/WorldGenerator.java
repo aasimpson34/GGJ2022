@@ -12,6 +12,7 @@ import worldmap.WorldChunk;
 public class WorldGenerator {
 	
 	Random random_generator;
+	boolean townGrid[][]= new boolean[32][32];
 	
 	/**
 	 * This operation will generate a world chunk
@@ -88,6 +89,7 @@ public class WorldGenerator {
 				if(height >  0.75f)
 				{
 					tiles[(int)x][(int)y] = 1;
+					townGrid[(int)x][(int)y] = true;
 				}
 				//Grass
 				else
@@ -119,8 +121,7 @@ public class WorldGenerator {
 		//Randomly select the number of towns that will be assigned
 		int numberOfTownsToGenerate = random_generator.nextInt(5) + 1;
 		
-		boolean townGrid[][]= new boolean[32][32];
-		
+	
 
 		Array<TownEntity> townEntities = new Array<TownEntity>();
 		for(int townToGenerate = 0; townToGenerate < numberOfTownsToGenerate; townToGenerate++)
