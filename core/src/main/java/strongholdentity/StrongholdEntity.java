@@ -11,4 +11,9 @@ import townentity.TownEntity;
  */
 public class StrongholdEntity extends TownEntity {
 
+	public StrongholdEntity(int x, int y) {
+		super(x, y);
+		// TODO Auto-generated constructor stub
+	}
+
 }
