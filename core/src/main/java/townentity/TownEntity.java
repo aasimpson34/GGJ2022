@@ -3,7 +3,12 @@ package townentity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+
+import assetmanager.ResourceLookup;
 import inventorysystem.RESOURCE_TYPES;
+import renderer.GameRenderer;
 import towngeneration.TOWN_TYPES;
 
 /**
@@ -42,22 +47,25 @@ public class TownEntity {
 	}
 	
 	public void render() {
-		System.err.println("TownEntity:render(); not implemented");
+		SpriteBatch batch = GameRenderer.getInstance().getBatch();
+		AtlasRegion town = ResourceLookup.getInstance().getTextureAtlas("world_atlas.atlas").findRegion("sand_dark");
+		batch.draw(town, this.positionX, this.positionY);
 	}
 
 	public boolean update() {
 		increasePopulation(this.populationSpeed);
 		decreaseReputation(this.reputationSpeed);
-		increaseResources();
+		//increaseResources();
 		
 		return true;
 	}
 	
 	public void increaseResources() {
-		for(int i = 0; i < this.resources.size(); i++) {
-			TownResources resource = this.resources.get(i);
+		for(int i = 0; i < this.resources.length; i++) {
+			TownResources resource = this.resources[i];
 			
-			resource.setCurrentTime(1000); // Decrease time by 1 second
+			int currentTime = resource.getCurrentTime();
+			resource.setCurrentTime(currentTime - 1000); // Decrease time by 1 second
 			
 			if(resource.getCurrentTime() == 0) {
 				resource.setAmount(resource.getResourceRate());
@@ -68,27 +76,27 @@ public class TownEntity {
 	}
 	
 	public void increasePopulation(int x) {
-		setPopulation(this.population += x);
+		setPopulation(this.population + x);
 	}
 	public void decreasePopulation(int x) {
-		setPopulation(this.population -= x);
+		setPopulation(this.population - x);
 	}
 	
 	public void increaseReputation(int x) {
-		setReputation(this.reputation += x);
+		setReputation(this.reputation + x);
 	}
 	public void decreaseReputation(int x) {
-		setReputation(this.reputation -= x);
+		setReputation(this.reputation - x);
 	}
 	
 	public void createResources(RESOURCE_TYPES type, int amount) {
 		TownResources resource = new TownResources(type, amount);
-		resources.add(resource);
+		resources[type.getValue()] = resource;
 	}
 	public TownResources getResource(RESOURCE_TYPES search) {
 		int id = search.getValue();
-		for(int i = 0; i < this.resources.size(); i++) {
-			TownResources resource = this.resources.get(i);
+		for(int i = 0; i < this.resources.length; i++) {
+			TownResources resource = this.resources[i];
 			RESOURCE_TYPES type = resource.getResourceType();
 			
 			if(type.getValue() == id) {
@@ -100,8 +108,8 @@ public class TownEntity {
 	}
 	public void setResource(RESOURCE_TYPES search, int amount) {
 		int id = search.getValue();
-		for(int i = 0; i < this.resources.size(); i++) {
-			TownResources resource = this.resources.get(i);
+		for(int i = 0; i < this.resources.length; i++) {
+			TownResources resource = this.resources[i];
 			RESOURCE_TYPES type = resource.getResourceType();
 			
 			if(type.getValue() == id) {
@@ -157,4 +165,16 @@ public class TownEntity {
     
     public int getPositionX() { return this.positionX; }
     public int getPositionY() { return this.positionY; }
+    
+    public void debugOverview() {
+    	System.out.println("\n#INI# Town Entity - Overview #INI#");
+    	System.out.println("positionX: " + this.positionX);
+    	System.out.println("positionY: " + this.positionY);
+    	System.out.println("population: " + this.population + "/" + this.populationLimit);
+    	
+    	System.out.println("reputation: " + this.reputation);
+    	System.out.println("resourseType: " + this.mainResource.toString());
+    	System.out.println("townType: " + this.townType.toString());
+    	System.out.println("#END# Town Entity - Overview #END#\n");
+    }
 }

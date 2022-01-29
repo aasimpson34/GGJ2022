@@ -3,7 +3,7 @@ package towngeneration;
 import inventorysystem.RESOURCE_TYPES;
 import townentity.TownEntity;
 
-public class TownGeneratorHandler {
+public class TownGeneratorHandler { 
 	
 	public TownEntity generateNewTown(int x, int y)
 	{
@@ -26,7 +26,7 @@ public class TownGeneratorHandler {
 		
 		int maxResources = RESOURCE_TYPES.E_MAX_COUNT.getValue();
 		for(int i = 0; i < maxResources; i++) {
-			
+			RESOURCE_TYPES type = RESOURCE_TYPES.get(i);
 		}
 		
 		return town;
@@ -47,17 +47,7 @@ public class TownGeneratorHandler {
 	
 	private RESOURCE_TYPES getTownResource() {
 		int id = getRandomNumber(0, 4);
-		
-		switch(id) {
-			case 1 : 
-				return RESOURCE_TYPES.E_METAL;
-			case 2 :
-				return RESOURCE_TYPES.E_ORE;
-			case 3 :
-				return RESOURCE_TYPES.E_LINEN;
-			default :
-				return RESOURCE_TYPES.E_WOOD;
-		}
+		return RESOURCE_TYPES.get(id);
 	}
 	
 	private int getTownPopulationLimit(int type) {
@@ -82,15 +72,15 @@ public class TownGeneratorHandler {
 	}
 	
 	private int getTownReputation() {
-		int chance = getRandomNumber(0, 5);
-		
+		int chance = getRandomNumber(0, 3);
+		System.out.println(chance);
 		switch(chance) {
 			case 0:
-				return 25;
-			case 5:
-				return 75;
+				return (int) 25;
+			case 3:
+				return (int) 75;
 			default:
-				return 50;
+				return (int) 50;
 		}
 	}
 	

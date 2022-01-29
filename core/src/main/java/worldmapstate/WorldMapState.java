@@ -5,11 +5,14 @@ import camera.GameCamera;
 import entity.GameObjectEntityHandler;
 import renderer.GameRenderer;
 import states.GameState;
+import townentity.TownEntity;
+import towngeneration.TownGeneratorHandler;
 import worldmap.WorldChunk;
 
 public class WorldMapState implements GameState {
 	
 	WorldChunk m_debugWorldChunk[] = new WorldChunk[4];
+	TownEntity debugTown;
 	
 	public WorldMapState() {
 		GameRenderer.getInstance();
@@ -19,11 +22,13 @@ public class WorldMapState implements GameState {
 		m_debugWorldChunk[2] = new WorldChunk(-1, -1);
 		m_debugWorldChunk[3] = new WorldChunk(0, -1);
 		
+		TownGeneratorHandler townGenerator = new TownGeneratorHandler();
+		debugTown = townGenerator.generateNewTown(0, 0);
+		debugTown.debugOverview();
 	}
 	
 	@Override
 	public GameState update() {
-
 		GameObjectEntityHandler.getInstance().update();
 		for(int x = 0; x < 4 ;x++)
 			m_debugWorldChunk[x].update();
@@ -39,8 +44,9 @@ public class WorldMapState implements GameState {
 		for(int x = 0; x < 4 ;x++)
 			m_debugWorldChunk[x].render();
 		
-		GameObjectEntityHandler.getInstance().render();
+		debugTown.render();
 		
+		GameObjectEntityHandler.getInstance().render();
 		GameRenderer.getInstance().getBatch().end();
 	}
 
