@@ -11,6 +11,7 @@ package camera;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
@@ -22,7 +23,7 @@ public class GameCamera {
 	static GameCamera m_instance;
 	
 	/**
-	 * 
+	 * Get the static instance of this class
 	 * @return
 	 */
 	public static GameCamera getInstance()
@@ -33,11 +34,16 @@ public class GameCamera {
 		return m_instance;
 	}
 	
+	//================== Member Variables ======================
 	Vector2 m_targetPosition;
 	float m_speedToMoveToPosition;
 	
 	OrthographicCamera m_gameCameraMatrix;
 	
+	/**
+	 * Constructor 
+	 * Game camera matrix will be initialised here.
+	 */
 	public GameCamera()
 	{
 		m_gameCameraMatrix = new OrthographicCamera(1920,1080);
@@ -75,5 +81,12 @@ public class GameCamera {
 	public Vector3 getMouseCoords(Vector2 mousePosition)
 	{
 		return m_gameCameraMatrix.unproject(new Vector3(mousePosition, 0));
+	}
+
+	/**
+	 * @return the matrix projection to be used
+	 */
+	public Matrix4 getProjection() {
+		return m_gameCameraMatrix.projection;
 	}
 }
