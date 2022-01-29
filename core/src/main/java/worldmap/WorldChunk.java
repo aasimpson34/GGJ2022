@@ -39,7 +39,7 @@ public class WorldChunk {
 			{
 				AtlasRegion region = null;
 				if(tileId[x][y] == 0)
-					region = ResourceLookup.getInstance().getTextureAtlas("world_atlas.atlas").findRegion("grass_dark");
+					region = ResourceLookup.getInstance().getTextureAtlas("world_atlas.atlas").findRegion("grass_light");
 			
 				if(y%2 == 0)
 					batch.draw(region, x * TILE_X_SIZE + HALF_TILE_X_SIZE + (m_xChunkPosition), y * TILE_Y_SIZE + (m_yChunkPosition));
@@ -47,11 +47,15 @@ public class WorldChunk {
 					batch.draw(region, x * TILE_X_SIZE + (m_xChunkPosition), y * TILE_Y_SIZE + (m_yChunkPosition));
 			}
 		}
+		
+		for(TownEntity entity : m_townEntity)
+			entity.render();
 	}
 	
 	public void update()
 	{
-		
+		for(TownEntity entity : m_townEntity)
+			entity.update();
 	}
 
 	/**

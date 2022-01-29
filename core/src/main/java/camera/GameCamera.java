@@ -30,7 +30,7 @@ public class GameCamera {
 	{
 		if(m_instance == null)
 			m_instance = new GameCamera();
-		
+				
 		return m_instance;
 	}
 	
@@ -47,7 +47,7 @@ public class GameCamera {
 	public GameCamera()
 	{
 		m_gameCameraMatrix = new OrthographicCamera(1920,1080);
-		
+		m_targetPosition = new Vector2(0, 0);
 	}
 	
 	/**
@@ -60,6 +60,7 @@ public class GameCamera {
 		m_gameCameraMatrix.position.x  = Interpolation.linear.apply(m_gameCameraMatrix.position.x, m_targetPosition.x, interpolate_amount);
 		m_gameCameraMatrix.position.y  = Interpolation.linear.apply(m_gameCameraMatrix.position.y, m_targetPosition.y, interpolate_amount);
 		
+		System.out.println(m_gameCameraMatrix.position.x );
 		m_gameCameraMatrix.update();
 	}
 	
@@ -76,6 +77,7 @@ public class GameCamera {
 	{
 		m_targetPosition = new Vector2(x, y);
 		m_speedToMoveToPosition = speed;
+		
 	}
 	
 	public Vector3 getMouseCoords(Vector2 mousePosition)
@@ -87,6 +89,6 @@ public class GameCamera {
 	 * @return the matrix projection to be used
 	 */
 	public Matrix4 getProjection() {
-		return m_gameCameraMatrix.projection;
+		return m_gameCameraMatrix.combined;
 	}
 }

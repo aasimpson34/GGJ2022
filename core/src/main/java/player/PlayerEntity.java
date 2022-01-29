@@ -68,4 +68,11 @@ public class PlayerEntity extends GameObjectEntity{
 			m_velocity.y -= 250 * Gdx.graphics.getDeltaTime();
 	}
 
+	/**
+	 * @return
+	 */
+	public Vector2 getPosition() {
+		return m_playerPosition;
+	}
+
 }

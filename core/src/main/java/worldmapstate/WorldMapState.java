@@ -33,8 +33,11 @@ public class WorldMapState implements GameState {
 	@Override
 	public GameState update() {
 		GameObjectEntityHandler.getInstance().update();
+		GameCamera.getInstance().update();
 		
 		m_debugWorldChunk.update();
+		
+		GameCamera.getInstance().moveTo(m_playerEntity.getPosition().x, m_playerEntity.getPosition().y, 0.01F);
 		
 		return this;
 	}
