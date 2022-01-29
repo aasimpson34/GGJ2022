@@ -18,8 +18,8 @@ public class WorldMapState implements GameState {
 	WorldMap m_worldMap;
 	PlayerEntity m_playerEntity;
 	
-	TownEntity debugTown;
-	WorldEntityUI townUI;
+	//TownEntity debugTown;
+	//WorldEntityUI townUI;
 	
 	public WorldMapState() {
 		GameRenderer.getInstance();
@@ -30,10 +30,9 @@ public class WorldMapState implements GameState {
 		m_playerEntity = new PlayerEntity();
 		GameObjectEntityHandler.getInstance().addGameObject(m_playerEntity);
 		
-		TownGeneratorHandler townGenerator = new TownGeneratorHandler();
-		debugTown = townGenerator.generateNewTown(0, 0);
-		
-		townUI = new TownWorldEntityUI();
+		//TownGeneratorHandler townGenerator = new TownGeneratorHandler();
+		//debugTown = townGenerator.generateNewTown(0, 0);
+		//townUI = new TownWorldEntityUI();
 	}
 	
 	@Override
@@ -41,9 +40,9 @@ public class WorldMapState implements GameState {
 		GameObjectEntityHandler.getInstance().update();
 		GameCamera.getInstance().update();
 		
-		debugTown.update();
-		townUI.setTownEntity(debugTown);
-		townUI.update();
+		//debugTown.update();
+		//townUI.setTownEntity(debugTown);
+		//townUI.update();
 		
 		GameCamera.getInstance().moveTo(m_playerEntity.getPosition().x, m_playerEntity.getPosition().y, 0.01F);
 		m_worldMap.update(m_playerEntity);
@@ -57,9 +56,8 @@ public class WorldMapState implements GameState {
 		GameRenderer.getInstance().getBatch().begin();
 		m_worldMap.render();
 		
-		debugTown.render(0, 0);
-		townUI.render();
-				
+		//debugTown.render(0, 0);
+		//townUI.render();
 	
 		GameObjectEntityHandler.getInstance().render();
 		GameRenderer.getInstance().getBatch().end();
