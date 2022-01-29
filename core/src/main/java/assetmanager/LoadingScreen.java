@@ -9,6 +9,7 @@
 package assetmanager;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
@@ -18,7 +19,7 @@ import renderer.GameRenderer;
  * @author aasim
  *
  */
-public class LoadingScreen {
+public class LoadingScreen{
 	
 	BitmapFont temporaryBitmapFont; //TODO: remove me.
 	
@@ -36,8 +37,11 @@ public class LoadingScreen {
 	
 	public boolean update(){
 		m_loadProgress = m_assetManager.getProgress();
-
+		
+		System.out.println(m_loadProgress);
 		if(m_assetManager.update()){
+			
+			ResourceLookup.getInstance().setAssetManager(m_assetManager);
 			return true;
 		}
 		
@@ -45,6 +49,7 @@ public class LoadingScreen {
 	}
 	
 	public void render(){
+		temporaryBitmapFont.setColor(Color.BLACK);
 		temporaryBitmapFont.draw(GameRenderer.getInstance().getBatch(),"Loading..", 0, 0 );
 	}
 	
@@ -52,7 +57,5 @@ public class LoadingScreen {
 		return m_loadProgress;
 	}
 	
-	public TextureAtlas getTextureAtlas(String string) {
-		return m_assetManager.get(string, TextureAtlas.class);
-	}
+
 }
