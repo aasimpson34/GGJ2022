@@ -34,6 +34,7 @@ public class TownGeneratorHandler {
 			
 			int resourceTime = getResourceTime(townLevel.getValue());
 			town.setResourceTime(type, resourceTime);
+			town.setResourceCurrentTime(type, resourceTime);
 			
 			int workers = townPopulation / 3;
 			town.setWorkers(type, workers);
