@@ -7,6 +7,8 @@ import renderer.GameRenderer;
 import states.GameState;
 import townentity.TownEntity;
 import towngeneration.TownGeneratorHandler;
+import userInterface.TownWorldEntityUI;
+import userInterface.WorldEntityUI;
 import worldgeneration.WorldGenerator;
 import worldmap.WorldChunk;
 import worldmap.WorldMap;
@@ -14,8 +16,10 @@ import worldmap.WorldMap;
 public class WorldMapState implements GameState {
 	
 	WorldMap m_worldMap;
-	TownEntity debugTown;
 	PlayerEntity m_playerEntity;
+	
+	TownEntity debugTown;
+	WorldEntityUI townUI;
 	
 	public WorldMapState() {
 		GameRenderer.getInstance();
@@ -27,6 +31,9 @@ public class WorldMapState implements GameState {
 		GameObjectEntityHandler.getInstance().addGameObject(m_playerEntity);
 		
 		TownGeneratorHandler townGenerator = new TownGeneratorHandler();
+		debugTown = townGenerator.generateNewTown(0, 0);
+		
+		townUI = new TownWorldEntityUI();
 	}
 	
 	@Override
@@ -34,7 +41,9 @@ public class WorldMapState implements GameState {
 		GameObjectEntityHandler.getInstance().update();
 		GameCamera.getInstance().update();
 		
-	
+		debugTown.update();
+		townUI.setTownEntity(debugTown);
+		townUI.update();
 		
 		GameCamera.getInstance().moveTo(m_playerEntity.getPosition().x, m_playerEntity.getPosition().y, 0.01F);
 		m_worldMap.update(m_playerEntity);
@@ -47,6 +56,9 @@ public class WorldMapState implements GameState {
 		GameRenderer.getInstance().getBatch().begin();
 		
 		m_worldMap.render();
+		
+		debugTown.render(0, 0);
+		townUI.render();
 				
 		GameObjectEntityHandler.getInstance().render();
 		GameRenderer.getInstance().getBatch().end();
