@@ -27,6 +27,18 @@ public class TownGeneratorHandler {
 		int maxResources = RESOURCE_TYPES.E_MAX_COUNT.getValue();
 		for(int i = 0; i < maxResources; i++) {
 			RESOURCE_TYPES type = RESOURCE_TYPES.get(i);
+			town.createResources(type, 0);
+			
+			int resourceLimit = getResourceLimit(townLevel.getValue());
+			town.setResourceLimit(type, resourceLimit);
+			
+			int resourceTime = getResourceTime(townLevel.getValue());
+			town.setResourceTime(type, resourceTime);
+			
+			int workers = townPopulation / 3;
+			town.setWorkers(type, workers);
+			
+			town.setResourceRate(type, 10);
 		}
 		
 		return town;
@@ -34,15 +46,7 @@ public class TownGeneratorHandler {
 	
 	private TOWN_TYPES getTownLevel() {
 		int id = getRandomNumber(0, 2);
-		
-		switch(id) {
-			case 1 : 
-				return TOWN_TYPES.T_VILLAGE;
-			case 2 :
-				return TOWN_TYPES.T_STRONGHOLD;
-			default :
-				return TOWN_TYPES.T_CAMP;
-		}
+		return TOWN_TYPES.get(id);
 	}
 	
 	private RESOURCE_TYPES getTownResource() {
@@ -83,6 +87,28 @@ public class TownGeneratorHandler {
 				return (int) 50;
 		}
 	}
+	
+	private int getResourceLimit(int type) {
+		switch(type) {
+			case 1:
+				return 75;
+			case 2: 
+				return 100;
+			default:
+				return 50;
+		}
+	}
+	private int getResourceTime(int type) {
+		switch(type) {
+			case 1:
+				return 2000;
+			case 2: 
+				return 1000;
+			default:
+				return 3000;
+		}
+	}
+
 	
 	private int getRandomNumber(int min, int max) {
 		return (int) (Math.random() * (max - min)) + min;

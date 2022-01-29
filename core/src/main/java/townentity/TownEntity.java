@@ -89,36 +89,58 @@ public class TownEntity {
 		setReputation(this.reputation - x);
 	}
 	
-	public void createResources(RESOURCE_TYPES type, int amount) {
-		TownResources resource = new TownResources(type, amount);
+	// * INI - Resource Management
+	public void createResources(RESOURCE_TYPES type, int x) {
+		TownResources resource = new TownResources(type, x);
 		resources[type.getValue()] = resource;
+	}
+	
+	public void setWorkers(RESOURCE_TYPES search, int x) {
+		int id = search.getValue();
+		resources[id].setWorkers(x);
+	}
+	public int getWorkers(RESOURCE_TYPES search) {
+		int id = search.getValue();
+		return resources[id].getWorkers();
+	}
+	
+	public void setResourceLimit(RESOURCE_TYPES search, int x) {
+		int id = search.getValue();
+		resources[id].setResourceLimit(x);
+	}
+	public int getResourceLimit(RESOURCE_TYPES search) {
+		int id = search.getValue();
+		return resources[id].getResourceLimit();
+	}
+	
+	public void setResourceTime(RESOURCE_TYPES search, int x) {
+		int id = search.getValue();
+		resources[id].setResourceTime(x);
+	}
+	public int getResourceTime(RESOURCE_TYPES search) {
+		int id = search.getValue();
+		return resources[id].getResourceTime();
+	}
+	
+	public void setResourceRate(RESOURCE_TYPES search, int x) {
+		int id = search.getValue();
+		resources[id].setResourceRate(x);
+	}
+	public int getResourceRate(RESOURCE_TYPES search) {
+		int id = search.getValue();
+		return resources[id].getResourceRate();
+	}
+	
+	public void setResourceAmount(RESOURCE_TYPES search, int amount) {
+		int id = search.getValue();
+		resources[id].setAmount(amount);
 	}
 	public TownResources getResource(RESOURCE_TYPES search) {
 		int id = search.getValue();
-		for(int i = 0; i < this.resources.length; i++) {
-			TownResources resource = this.resources[i];
-			RESOURCE_TYPES type = resource.getResourceType();
-			
-			if(type.getValue() == id) {
-				return resource;
-			}
-		}
-		
-		return null;
-	}
-	public void setResource(RESOURCE_TYPES search, int amount) {
-		int id = search.getValue();
-		for(int i = 0; i < this.resources.length; i++) {
-			TownResources resource = this.resources[i];
-			RESOURCE_TYPES type = resource.getResourceType();
-			
-			if(type.getValue() == id) {
-				resource.setAmount(amount);
-				return;
-			}
-		}
+		return resources[id];
 	}
 	public TownResources[] getAllResources() { return this.resources; }
+	// * END - Resource Management
 	
 	public int getPopulation() { return this.population; }
     public void setPopulation(int x) {
@@ -171,10 +193,13 @@ public class TownEntity {
     	System.out.println("positionX: " + this.positionX);
     	System.out.println("positionY: " + this.positionY);
     	System.out.println("population: " + this.population + "/" + this.populationLimit);
-    	
     	System.out.println("reputation: " + this.reputation);
     	System.out.println("resourseType: " + this.mainResource.toString());
     	System.out.println("townType: " + this.townType.toString());
+    	System.out.println("resourceStock - " + this.resources[0].getResourceType().toString() + ": " + this.resources[0].getAmount());
+    	System.out.println("resourceStock - " + this.resources[1].getResourceType().toString() + ": " + this.resources[1].getAmount());
+    	System.out.println("resourceStock - " + this.resources[2].getResourceType().toString() + ": " + this.resources[2].getAmount());
+    	System.out.println("resourceStock - " + this.resources[3].getResourceType().toString() + ": " + this.resources[3].getAmount());
     	System.out.println("#END# Town Entity - Overview #END#\n");
     }
 }
