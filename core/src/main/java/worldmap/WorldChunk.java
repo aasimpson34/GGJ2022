@@ -45,6 +45,10 @@ public class WorldChunk {
 					region = ResourceLookup.getInstance().getTextureAtlas("world_atlas.atlas").findRegion("grass_light");
 				else if(tileId[x][y] == 1)
 					region = ResourceLookup.getInstance().getTextureAtlas("world_atlas.atlas").findRegion("mountain");
+				else if(tileId[x][y] == 2)
+					region = ResourceLookup.getInstance().getTextureAtlas("world_atlas.atlas").findRegion("sand_dark");
+				else if(tileId[x][y] == 3)
+					region = ResourceLookup.getInstance().getTextureAtlas("world_atlas.atlas").findRegion("water_light");
 
 				TileRenderer.renderTile(region, x, y, xOffset, yOffset);
 			}
@@ -90,7 +94,7 @@ public class WorldChunk {
 		{
 			for(int y = 0; y < CHUNK_SIZE; y++)
 			{
-				if(tileId[x][y] != 0)
+				if(tileId[x][y] != 0 && tileId[x][y] != 2)
 				{
 					m_collision.add(generateHexCollisionTile(x, y, xOffset, yOffset));
 				}

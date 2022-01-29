@@ -91,11 +91,22 @@ public class WorldGenerator {
 					tiles[(int)x][(int)y] = 1;
 					townGrid[(int)x][(int)y] = true;
 				}
-				//Grass
-				else
+				else if(height > 0.025F)
 				{
 					tiles[(int)x][(int)y] = 0;
 				}
+				else if(height >  -0.25f)
+				{
+					tiles[(int)x][(int)y] = 2;
+					townGrid[(int)x][(int)y] = true;
+				}
+				else 
+				{
+					tiles[(int)x][(int)y] = 3;
+					townGrid[(int)x][(int)y] = true;
+				}
+				//Grass
+				
 			}
 		}
 		

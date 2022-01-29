@@ -75,7 +75,7 @@ public class GameCamera {
 			m_gameCameraMatrix.position.y  = m_targetPosition.y;
 			translateCalled = false;
 		}
-
+		
 
 		m_gameCameraMatrix.update();
 	}

@@ -54,7 +54,7 @@ public class PlayerEntity extends GameObjectEntity{
 		if(doesPlayerCollide)
 		{
 			m_playerPosition = m_previousPlayerPosition.cpy();
-			m_velocity.scl(0.0F);
+			m_velocity.scl(-0.5F);
 		}
 	}
 	/**
