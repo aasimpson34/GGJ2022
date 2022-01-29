@@ -1,0 +1,23 @@
+[
+    {
+        "type": "T_CAMP",
+        "resourceLimit": 50,
+        "populationLimit": 25,
+        "startingPopulation": 5,
+        "ratePerWorker": 5,
+    },
+    {
+        "type": "T_VILLAGE",
+        "resourceLimit": 75,
+        "populationLimit": 50,
+        "startingPopulation": 10,
+        "ratePerWorker": 5,
+    },
+    {
+        "type": "T_STRONGHOLD",
+        "resourceLimit": 100,
+        "populationLimit": 75,
+        "startingPopulation": 15,
+        "ratePerWorker": 5,
+    }
+]

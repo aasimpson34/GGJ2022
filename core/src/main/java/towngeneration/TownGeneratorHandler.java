@@ -78,7 +78,6 @@ public class TownGeneratorHandler {
 	
 	private int getTownReputation() {
 		int chance = getRandomNumber(0, 3);
-		System.out.println(chance);
 		switch(chance) {
 			case 0:
 				return (int) 25;
