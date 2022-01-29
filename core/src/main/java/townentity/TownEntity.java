@@ -61,11 +61,10 @@ public class TownEntity {
 		float updateTime = Gdx.graphics.getDeltaTime();
 		lastUpdate += updateTime;
 		
-		if(lastUpdate >= 60) {
+		if(lastUpdate >= 1) {
 			increasePopulation(this.populationSpeed);
 			decreaseReputation(this.reputationSpeed);
 			increaseResources();
-			
 			lastUpdate = 0;
 		}
 		
@@ -81,11 +80,10 @@ public class TownEntity {
 			resource.setCurrentTime(currentTime - 1000);
 			
 			if(resource.getCurrentTime() <= 0) {
-				resource.setAmount(resource.getResourceRate());
+				int currentAmount = resource.getAmount();
+				resource.setAmount(currentAmount + resource.getResourceRate());
 				resource.setCurrentTime(resource.getResourceTime());
 			}
-			
-			this.resources[i] = resource;
 		}
 	}
 	
