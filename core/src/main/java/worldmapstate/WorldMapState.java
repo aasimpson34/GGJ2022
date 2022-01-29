@@ -45,9 +45,8 @@ public class WorldMapState implements GameState {
 	public void render() {
 		GameRenderer.getInstance().getBatch().setProjectionMatrix(GameCamera.getInstance().getProjection());
 		GameRenderer.getInstance().getBatch().begin();
-		
 		m_worldMap.render();
-				
+	
 		GameObjectEntityHandler.getInstance().render();
 		GameRenderer.getInstance().getBatch().end();
 	}

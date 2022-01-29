@@ -1,145 +1,145 @@
 
 world_atlas.png
-size: 512, 256
+size: 1024, 128
 format: RGBA8888
-filter: Nearest, Nearest
+filter: Linear, Linear
 repeat: none
 forest
   rotate: false
-  xy: 2, 68
+  xy: 64, 45
   size: 64, 83
   orig: 64, 83
   offset: 0, 0
   index: -1
 forest_dark
   rotate: false
-  xy: 68, 173
+  xy: 128, 64
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 grass_dark
   rotate: false
-  xy: 200, 173
+  xy: 320, 64
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 grass_dark_end
   rotate: false
-  xy: 134, 173
+  xy: 192, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 grass_light
   rotate: false
-  xy: 200, 107
+  xy: 384, 64
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 hover_blue
   rotate: false
-  xy: 332, 173
+  xy: 512, 64
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 hover_red
   rotate: false
-  xy: 200, 41
+  xy: 448, 64
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 hover_white
   rotate: false
-  xy: 266, 41
+  xy: 512, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 linen
   rotate: false
-  xy: 134, 41
+  xy: 320, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 mountain
   rotate: false
-  xy: 266, 173
+  xy: 384, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 sand_dark
   rotate: false
-  xy: 398, 109
+  xy: 640, 3
   size: 64, 62
   orig: 64, 64
   offset: 0, 1
   index: -1
 sand_dark_end
   rotate: false
-  xy: 134, 107
+  xy: 256, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 stone
   rotate: false
-  xy: 2, 2
+  xy: 128, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 town
   rotate: false
-  xy: 2, 153
+  xy: 0, 44
   size: 64, 84
   orig: 64, 84
   offset: 0, 0
   index: 3
 town
   rotate: false
-  xy: 68, 107
+  xy: 192, 64
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 1
 town
   rotate: false
-  xy: 332, 107
+  xy: 576, 64
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 2
 water_dark
   rotate: false
-  xy: 398, 173
+  xy: 576, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 water_dark_end
   rotate: false
-  xy: 68, 41
+  xy: 256, 64
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 water_light
   rotate: false
-  xy: 332, 42
+  xy: 640, 65
   size: 64, 63
   orig: 64, 64
   offset: 0, 1
   index: -1
 water_light_end
   rotate: false
-  xy: 266, 107
+  xy: 448, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
