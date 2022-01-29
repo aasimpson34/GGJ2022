@@ -7,10 +7,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 import assetmanager.ResourceLookup;
 import camera.GameCamera;
+import player.PlayerEntity;
 import renderer.GameRenderer;
 import renderer.TileRenderer;
 import townentity.TownEntity;
@@ -22,6 +24,7 @@ public class WorldChunk {
 	final int CHUNK_SIZE = 32;
 
 	Array<Polygon> m_collision;
+	
 	int tileId[][] = new int[CHUNK_SIZE][CHUNK_SIZE];
 	
 	//Array which contains the town entities for the chunk.
@@ -29,8 +32,8 @@ public class WorldChunk {
 	
 	public WorldChunk(int x, int y)
 	{
-		m_xChunkPosition = x * 2048;
-		m_yChunkPosition = y * 1504;
+		m_xChunkPosition = x;
+		m_yChunkPosition = y;
 		m_collision = new Array<Polygon>();
 	}
 	
@@ -58,15 +61,32 @@ public class WorldChunk {
 			entity.render(xOffset, yOffset);
 	}
 	
-	public void update()
+	public void update(PlayerEntity player)
 	{
 		for(TownEntity entity : m_townEntity)
+		{
 			entity.update();
-		
-		//Check if the player is within a town entity hex
+			
+			//Check if the player is within a town entity hex
 			//tell the town that the player is near (draw a prompt)
 			//if the player interacts then tell the town entity to render its
 			// ui.
+			Vector2 global = player.getPosition().cpy();
+			global.y+= 5;
+			
+			Vector2 playerLeft = global.cpy();
+			playerLeft.x +=16;
+			
+			Vector2 playerRight = global.cpy();
+			playerRight.x += 32;
+			
+			Polygon townCol = generateHexCollisionTile(entity.getPositionX(), entity.getPositionY(), m_xChunkPosition, m_yChunkPosition);
+			if(townCol.contains(playerLeft) || townCol.contains(playerRight))
+			{
+				
+			}
+		}
+		
 		
 	}
 
@@ -100,6 +120,9 @@ public class WorldChunk {
 				}
 			}
 		}
+		
+		m_xChunkPosition = xOffset;
+		m_yChunkPosition = yOffset;
 		return m_collision;
 	}
 	

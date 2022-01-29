@@ -139,18 +139,29 @@ public class WorldGenerator {
 		{
 			//Decide on town positions
 			int town_x = 0, town_y = 0;
+			int attempts = 0;
 			do
 			{
 				town_x = random_generator.nextInt(32);
 				town_y = random_generator.nextInt(32);
 				
+				attempts++;
+				if(attempts >= 20)
+					break;
+				
 			}while(townGrid[town_x][town_y]);
 			
+			if(attempts < 20)
+			{
 			//Generate towns
-			townGrid[town_x][town_y] = true;
+				townGrid[town_x][town_y] = true;
 			
-			townEntities.add(new TownGeneratorHandler().generateNewTown(town_x, town_y));
-			
+				townEntities.add(new TownGeneratorHandler().generateNewTown(town_x, town_y));
+			}
+			else
+			{
+				break;
+			}
 		}
 		return townEntities;	
 	}
