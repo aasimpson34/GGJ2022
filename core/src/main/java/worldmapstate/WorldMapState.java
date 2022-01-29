@@ -1,9 +1,8 @@
 package worldmapstate;
 
-import assetmanager.LoadingScreen;
 import camera.GameCamera;
 import entity.GameObjectEntityHandler;
-import inventorysystem.RESOURCE_TYPES;
+import player.PlayerEntity;
 import renderer.GameRenderer;
 import states.GameState;
 import townentity.TownEntity;
@@ -15,11 +14,16 @@ public class WorldMapState implements GameState {
 	
 	WorldChunk m_debugWorldChunk;
 	TownEntity debugTown;
+	PlayerEntity m_playerEntity;
 	
 	public WorldMapState() {
 		GameRenderer.getInstance();
 		GameCamera.getInstance();
 		m_debugWorldChunk = new WorldGenerator().generateChunk(0, 0, System.currentTimeMillis());
+		
+		//Add the player entity to the object pool.
+		m_playerEntity = new PlayerEntity();
+		GameObjectEntityHandler.getInstance().addGameObject(m_playerEntity);
 		
 		TownGeneratorHandler townGenerator = new TownGeneratorHandler();
 		debugTown = townGenerator.generateNewTown(0, 0);

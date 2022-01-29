@@ -13,7 +13,6 @@ public class GameStateHandler {
 	public GameStateHandler()
 	{
 		m_currentGameStates = new Array<GameState>();
-		m_currentGameStates.add(new WorldMapState());
 		m_currentGameStates.add(new LoadGameAssetsState());
 	}
 	
@@ -31,6 +30,11 @@ public class GameStateHandler {
 		if(gameStateToAdd == null)
 		{
 			m_currentGameStates.pop();
+		}
+		else if(gameStateToAdd != m_currentGameStates.peek())
+		{
+			m_currentGameStates.add(gameStateToAdd);
+
 		}
 	}
 }

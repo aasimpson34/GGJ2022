@@ -12,6 +12,7 @@ import camera.GameCamera;
 import entity.GameObjectEntityHandler;
 import renderer.GameRenderer;
 import states.GameState;
+import worldmapstate.WorldMapState;
 
 /**
  * @author aasim
@@ -32,7 +33,7 @@ public class LoadGameAssetsState implements GameState{
 	public GameState update() {
 		if(m_loadingScreenInstance.update())
 		{
-			return null;
+			return new WorldMapState();
 		}
 		return this;
 	}
