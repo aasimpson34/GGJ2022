@@ -64,17 +64,19 @@ public class GameCamera {
 		float interpolate_amount = (float) (1.0 - Math.pow(1 - m_speedToMoveToPosition * 3.0f, Gdx.graphics.getDeltaTime()* 60));
 		m_gameCameraMatrix.position.x  = Interpolation.linear.apply(m_gameCameraMatrix.position.x, m_targetPosition.x, interpolate_amount);
 		m_gameCameraMatrix.position.y  = Interpolation.linear.apply(m_gameCameraMatrix.position.y, m_targetPosition.y, interpolate_amount);
-		}
-		else
-		{
-			m_gameCameraMatrix.position.x  += m_targetPosition.x;
-			m_gameCameraMatrix.position.y  += m_targetPosition.y;
-			translateCalled = false;
-		}
-
+		
 		m_gameCameraMatrix.position.x = MathUtils.round(m_gameCameraMatrix.position.x );
 		m_gameCameraMatrix.position.y = MathUtils.round(m_gameCameraMatrix.position.y );
 		
+		}
+		else
+		{
+			m_gameCameraMatrix.position.x  = m_targetPosition.x;
+			m_gameCameraMatrix.position.y  = m_targetPosition.y;
+			translateCalled = false;
+		}
+
+
 		m_gameCameraMatrix.update();
 	}
 	
@@ -120,5 +122,6 @@ public class GameCamera {
 	public void translate(int i, int j) {
 		translateCalled = true;
 		m_targetPosition = new Vector2(i,j);
+		update();
 	}
 }

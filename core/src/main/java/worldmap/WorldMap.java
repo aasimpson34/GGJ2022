@@ -43,40 +43,40 @@ public class WorldMap {
 			}
 		}
 		
-		if(m_playerEntity.getPosition().x < 0)
+		if(GameCamera.getInstance().getPosition().x < 0)
 		{
 			//move chunks to the right
 			centreChunk.x--;
 			moveLeft(1);
-			m_playerEntity.getPosition().x = 2048;
-			GameCamera.getInstance().translate(2048, 0);
+			m_playerEntity.getPosition().x += 2048;
+			GameCamera.getInstance().translate(2048,(int) GameCamera.getInstance().getPosition().y);
 
 		}
-		if(m_playerEntity.getPosition().x > 2048)
+		if(GameCamera.getInstance().getPosition().x > 2048)
 		{
 			//move chunks to the right
 			centreChunk.x++;
 			moveRight(1);
-			m_playerEntity.getPosition().x = 0;
-			GameCamera.getInstance().translate(-2048, 0);
+			m_playerEntity.getPosition().x -= 2048;
+			GameCamera.getInstance().translate(0,(int) GameCamera.getInstance().getPosition().y);
 		}
 		
-		if(m_playerEntity.getPosition().y > 1504)
+		if(GameCamera.getInstance().getPosition().y > 1504)
 		{
 			//move chunks to the right
 			centreChunk.y++;
 			moveDown(1);
-			m_playerEntity.getPosition().y = 0;
-			GameCamera.getInstance().translate(0, -1504);
+			m_playerEntity.getPosition().y -= 1504;
+			GameCamera.getInstance().translate((int) GameCamera.getInstance().getPosition().x, 0);
 		}
 		
-		if(m_playerEntity.getPosition().y < 0)
+		if(GameCamera.getInstance().getPosition().y < 0)
 		{
 			//move chunks to the right
 			centreChunk.y--;
 			moveUp(1);
-			m_playerEntity.getPosition().y = 1504;
-			GameCamera.getInstance().translate(0, 1504);
+			m_playerEntity.getPosition().y += 1504;
+			GameCamera.getInstance().translate((int) GameCamera.getInstance().getPosition().x, 1504);
 		}
 	}
 	
