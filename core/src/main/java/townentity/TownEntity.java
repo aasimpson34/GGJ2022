@@ -1,5 +1,6 @@
 package townentity;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 
@@ -33,6 +34,7 @@ public class TownEntity {
 	private TownResources[] resources;
 	
 	WorldEntityUI m_worldEntityUI;
+	private float lastUpdate;
 	
 	public TownEntity(int x, int y) {
 		this.positionX = x;
@@ -55,9 +57,17 @@ public class TownEntity {
 	}
 
 	public boolean update() {
-		increasePopulation(this.populationSpeed);
-		decreaseReputation(this.reputationSpeed);
-		increaseResources();
+		float updateTime = Gdx.graphics.getDeltaTime();
+		lastUpdate += updateTime;
+		
+		if(lastUpdate >= 60) {
+			increasePopulation(this.populationSpeed);
+			decreaseReputation(this.reputationSpeed);
+			increaseResources();
+			
+			lastUpdate = 0;
+		}
+		
 		
 		return true;
 	}
@@ -67,7 +77,7 @@ public class TownEntity {
 			TownResources resource = this.resources[i];
 			
 			int currentTime = resource.getCurrentTime();
-			resource.setCurrentTime(currentTime - 1500);
+			resource.setCurrentTime(currentTime - 1000);
 			
 			if(resource.getCurrentTime() <= 0) {
 				resource.setAmount(resource.getResourceRate());
