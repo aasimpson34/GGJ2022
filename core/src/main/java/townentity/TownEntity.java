@@ -7,6 +7,8 @@ import assetmanager.ResourceLookup;
 import inventorysystem.RESOURCE_TYPES;
 import renderer.GameRenderer;
 import towngeneration.TOWN_TYPES;
+import userInterface.TownWorldEntityUI;
+import userInterface.WorldEntityUI;
 
 /**
  * 
@@ -30,22 +32,26 @@ public class TownEntity {
 	
 	private TownResources[] resources;
 	
+	WorldEntityUI m_worldEntityUI;
+	
 	public TownEntity(int x, int y) {
 		this.positionX = x;
 		this.positionY = y;
 		
 		int maxResources = RESOURCE_TYPES.E_MAX_COUNT.getValue();
 		resources = new TownResources[maxResources];
+		
+		m_worldEntityUI = new TownWorldEntityUI();
 	}
 	
-	public void render() {
-		renderTown();
+	public void render(int xOffset, int yOffset) {
+		renderTown(xOffset, yOffset);
 	}
-	public void renderTown() {
+	public void renderTown(int xOffset, int yOffset) {
 		int townId = this.townType.getValue() + 1;
 		SpriteBatch batch = GameRenderer.getInstance().getBatch();
 		AtlasRegion town = ResourceLookup.getInstance().getTextureAtlas("world_atlas.atlas").findRegion("town", townId);
-		batch.draw(town, this.positionX, this.positionY);
+		batch.draw(town, this.positionX*64 + (xOffset * 2048), this.positionY*47 + (yOffset * 1504));
 	}
 
 	public boolean update() {

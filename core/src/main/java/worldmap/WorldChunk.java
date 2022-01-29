@@ -1,6 +1,7 @@
 
 package worldmap;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.utils.Array;
@@ -54,12 +55,13 @@ public class WorldChunk {
 		}
 		
 		for(TownEntity entity : m_townEntity)
-			entity.render();
+			entity.render(xOffset, yOffset);
 	}
 	
 	public void update()
 	{
-
+		for(TownEntity entity : m_townEntity)
+			entity.update();
 	}
 
 	/**

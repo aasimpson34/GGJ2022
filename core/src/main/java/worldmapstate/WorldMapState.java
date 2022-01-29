@@ -47,9 +47,7 @@ public class WorldMapState implements GameState {
 		GameRenderer.getInstance().getBatch().begin();
 		
 		m_worldMap.render();
-		
-		debugTown.render();
-		
+				
 		GameObjectEntityHandler.getInstance().render();
 		GameRenderer.getInstance().getBatch().end();
 	}
