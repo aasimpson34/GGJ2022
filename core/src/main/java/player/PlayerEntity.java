@@ -58,14 +58,14 @@ public class PlayerEntity extends GameObjectEntity{
 	private void handlePlayerMovement() {
 		
 		if(Gdx.input.isKeyPressed(Keys.A))
-			m_velocity.x -= 250 * Gdx.graphics.getDeltaTime();
+			m_velocity.x -= 1250 * Gdx.graphics.getDeltaTime();
 		if(Gdx.input.isKeyPressed(Keys.D))
-			m_velocity.x += 250 * Gdx.graphics.getDeltaTime();
+			m_velocity.x += 1250 * Gdx.graphics.getDeltaTime();
 		
 		if(Gdx.input.isKeyPressed(Keys.W))
-			m_velocity.y += 250 * Gdx.graphics.getDeltaTime();
+			m_velocity.y += 1250 * Gdx.graphics.getDeltaTime();
 		if(Gdx.input.isKeyPressed(Keys.S))
-			m_velocity.y -= 250 * Gdx.graphics.getDeltaTime();
+			m_velocity.y -= 1250 * Gdx.graphics.getDeltaTime();
 	}
 
 	/**

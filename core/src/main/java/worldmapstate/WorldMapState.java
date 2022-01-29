@@ -9,17 +9,18 @@ import townentity.TownEntity;
 import towngeneration.TownGeneratorHandler;
 import worldgeneration.WorldGenerator;
 import worldmap.WorldChunk;
+import worldmap.WorldMap;
 
 public class WorldMapState implements GameState {
 	
-	WorldChunk m_debugWorldChunk;
+	WorldMap m_worldMap;
 	TownEntity debugTown;
 	PlayerEntity m_playerEntity;
 	
 	public WorldMapState() {
 		GameRenderer.getInstance();
 		GameCamera.getInstance();
-		m_debugWorldChunk = new WorldGenerator().generateChunk(0, 0, System.currentTimeMillis());
+		m_worldMap = new WorldMap();
 		
 		//Add the player entity to the object pool.
 		m_playerEntity = new PlayerEntity();
@@ -33,10 +34,10 @@ public class WorldMapState implements GameState {
 		GameObjectEntityHandler.getInstance().update();
 		GameCamera.getInstance().update();
 		
-		m_debugWorldChunk.update();
+	
 		
 		GameCamera.getInstance().moveTo(m_playerEntity.getPosition().x, m_playerEntity.getPosition().y, 0.01F);
-		
+		m_worldMap.update(m_playerEntity);
 		return this;
 	}
 
@@ -45,7 +46,7 @@ public class WorldMapState implements GameState {
 		GameRenderer.getInstance().getBatch().setProjectionMatrix(GameCamera.getInstance().getProjection());
 		GameRenderer.getInstance().getBatch().begin();
 		
-		m_debugWorldChunk.render();
+		m_worldMap.render();
 		
 		debugTown.render();
 		

@@ -16,8 +16,11 @@ public class WorldChunk {
 	final int CHUNK_SIZE = 32;
 	final int TILE_X_SIZE = 64;
 	final int HALF_TILE_X_SIZE = 32;
-
 	final int TILE_Y_SIZE = 47;
+
+	final int TOTAL_CHUNK_WIDTH = TILE_X_SIZE * CHUNK_SIZE;
+	final int TOTAL_CHUNK_HEIGHT = TILE_Y_SIZE * CHUNK_SIZE;
+	
 	
 	int tileId[][] = new int[CHUNK_SIZE][CHUNK_SIZE];
 	
@@ -30,7 +33,7 @@ public class WorldChunk {
 		m_yChunkPosition = y * 1504;
 	}
 	
-	public void render()
+	public void render(int xOffset, int yOffset)
 	{
 		SpriteBatch batch = GameRenderer.getInstance().getBatch();
 		for(int x = 0; x < CHUNK_SIZE; x++)
@@ -44,9 +47,9 @@ public class WorldChunk {
 					region = ResourceLookup.getInstance().getTextureAtlas("world_atlas.atlas").findRegion("mountain");
 
 				if(y%2 == 0)
-					batch.draw(region, x * TILE_X_SIZE + HALF_TILE_X_SIZE + (m_xChunkPosition), y * TILE_Y_SIZE + (m_yChunkPosition));
+					batch.draw(region, x * TILE_X_SIZE + HALF_TILE_X_SIZE + (xOffset * TOTAL_CHUNK_WIDTH), y * TILE_Y_SIZE + (yOffset * TOTAL_CHUNK_HEIGHT));
 				else
-					batch.draw(region, x * TILE_X_SIZE + (m_xChunkPosition), y * TILE_Y_SIZE + (m_yChunkPosition));
+					batch.draw(region, x * TILE_X_SIZE + (xOffset * TOTAL_CHUNK_WIDTH), y * TILE_Y_SIZE + (yOffset * TOTAL_CHUNK_HEIGHT));
 			}
 		}
 		
