@@ -8,6 +8,15 @@
  */
 package userInterface;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
+import renderer.GameRenderer;
+import townentity.TownEntity;
+
 /**
  * @author aasim
  *
@@ -19,7 +28,11 @@ public abstract class WorldEntityUI {
 	
 	public void renderWindow(int x, int y, int width, int height)
 	{
-		//have a look at potentially using a nine-patch texture.
+		SpriteBatch batch = GameRenderer.getInstance().getBatch();
+		
+		Texture background = new Texture(Gdx.files.internal("user_interface/debug_black.png"));
+		
+		batch.draw(background, x, y, width, height);
 	}
 	
 	public boolean renderButton(String button_label, int x, int y, int width, int height)
@@ -32,4 +45,8 @@ public abstract class WorldEntityUI {
 	{
 		
 	}
+	
+	public TownEntity townEntity;
+	public void setTownEntity(TownEntity town) { this.townEntity = town; }
+	public TownEntity getTownEntity() { return this.townEntity; }
 }

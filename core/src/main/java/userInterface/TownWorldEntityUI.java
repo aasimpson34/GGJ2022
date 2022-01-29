@@ -8,21 +8,24 @@
  */
 package userInterface;
 
+import townentity.TownEntity;
+
 /**
- * @author aasim
+ * @author Cullen Willis
  *
  */
 public class TownWorldEntityUI extends WorldEntityUI {
-
+	
+	private TownEntity townEntity;
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
+		townEntity = getTownEntity();
 		
 	}
 
 	@Override
 	public void render() {
-		// TODO Auto-generated method stub
+		renderWindow(0, 0, 200, 200);
 	}
 
 }
