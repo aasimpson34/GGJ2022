@@ -2,6 +2,11 @@ package worldgeneration;
 
 import java.util.Random;
 
+import com.badlogic.gdx.utils.Array;
+
+import townentity.TownEntity;
+import towngeneration.TownGeneratorHandler;
+
 public class WorldGenerator {
 	
 	/**
@@ -18,21 +23,25 @@ public class WorldGenerator {
 		Random random_generator = new Random(unique_seed_number);
 		
 		//Randomly select the number of towns that will be assigned
-		int numberOfTownsToGenerate = random_generator.nextInt(10);
+		int numberOfTownsToGenerate = random_generator.nextInt(5);
 		
-		//Decide on town positions
+		boolean townGrid[][]= new boolean[32][32];
 		
-		//Generate towns
+		Array<TownEntity> townEntities = new Array<TownEntity>();
+		for(int townToGenerate = 0; townToGenerate < numberOfTownsToGenerate; townToGenerate++)
+		{
+			//Decide on town positions
+			int town_x = 0, town_y = 0;
+			do
+			{
+				town_x = random_generator.nextInt(32);
+				town_y = random_generator.nextInt(32);
+				
+			}while(townGrid[town_x][town_y]);
+			
+			//Generate towns
+			
+			townEntities.add(new TownGeneratorHandler().generateNewTown(town_x, town_y));
+		}
 	}
-	
-	/**
-	 * Call this operation to generate a town 
-	 * @param x tile position
-	 * @param y tile position
-	 */
-	public void generateTown(int x, int y)
-	{
-		
-	}
-
 }
