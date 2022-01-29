@@ -1,8 +1,5 @@
 package townentity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 
@@ -15,11 +12,6 @@ import towngeneration.TOWN_TYPES;
  * 
  * @author cullen
  *
- * TODO: 
- * + TEST :(
- * + create resources on start
- * + calculate time on each resource
- *  
  */
 
 public class TownEntity {
@@ -59,7 +51,7 @@ public class TownEntity {
 	public boolean update() {
 		increasePopulation(this.populationSpeed);
 		decreaseReputation(this.reputationSpeed);
-		//increaseResources();
+		increaseResources();
 		
 		return true;
 	}
@@ -69,7 +61,7 @@ public class TownEntity {
 			TownResources resource = this.resources[i];
 			
 			int currentTime = resource.getCurrentTime();
-			resource.setCurrentTime(currentTime - 100);
+			resource.setCurrentTime(currentTime - 1500);
 			
 			if(resource.getCurrentTime() <= 0) {
 				resource.setAmount(resource.getResourceRate());

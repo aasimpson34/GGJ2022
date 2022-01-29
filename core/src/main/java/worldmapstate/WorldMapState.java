@@ -26,17 +26,6 @@ public class WorldMapState implements GameState {
 		GameObjectEntityHandler.getInstance().addGameObject(m_playerEntity);
 		
 		TownGeneratorHandler townGenerator = new TownGeneratorHandler();
-		debugTown = townGenerator.generateNewTown(0, 0);
-		//debugTown.debugOverview();
-		
-		debugTown.update();
-		//debugTown.debugOverview();
-		
-		debugTown.update();
-		//debugTown.debugOverview();
-		
-		debugTown.update();
-		//debugTown.debugOverview();
 	}
 	
 	@Override
