@@ -1,5 +1,8 @@
 package townentity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import inventorysystem.RESOURCE_TYPES;
 import towngeneration.TOWN_TYPES;
 
@@ -28,11 +31,13 @@ public class TownEntity {
 	private int positionX;
 	private int positionY;
 	
-	private TownResources[] resources;
+	private List<TownResources> resources;
 	
 	public TownEntity(int x, int y) {
 		this.positionX = x;
 		this.positionY = y;
+		
+		resources = new ArrayList<TownResources>();
 	}
 	
 	public void render() {
@@ -40,19 +45,16 @@ public class TownEntity {
 	}
 
 	public boolean update() {
-		// Increase population
 		increasePopulation(this.populationSpeed);
-		// Decrease reputation
 		decreaseReputation(this.reputationSpeed);
-		// Increase resources based on time
 		increaseResources();
 		
 		return true;
 	}
 	
 	public void increaseResources() {
-		for(int i = 0; i < this.resources.length; i++) {
-			TownResources resource = this.resources[i];
+		for(int i = 0; i < this.resources.size(); i++) {
+			TownResources resource = this.resources.get(i);
 			
 			resource.setCurrentTime(1000); // Decrease time by 1 second
 			
@@ -78,10 +80,14 @@ public class TownEntity {
 		setReputation(this.reputation -= x);
 	}
 	
+	public void createResources(RESOURCE_TYPES type, int amount) {
+		TownResources resource = new TownResources(type, amount);
+		resources.add(resource);
+	}
 	public TownResources getResource(RESOURCE_TYPES search) {
 		int id = search.getValue();
-		for(int i = 0; i < this.resources.length; i++) {
-			TownResources resource = this.resources[i];
+		for(int i = 0; i < this.resources.size(); i++) {
+			TownResources resource = this.resources.get(i);
 			RESOURCE_TYPES type = resource.getResourceType();
 			
 			if(type.getValue() == id) {
@@ -93,8 +99,8 @@ public class TownEntity {
 	}
 	public void setResource(RESOURCE_TYPES search, int amount) {
 		int id = search.getValue();
-		for(int i = 0; i < this.resources.length; i++) {
-			TownResources resource = this.resources[i];
+		for(int i = 0; i < this.resources.size(); i++) {
+			TownResources resource = this.resources.get(i);
 			RESOURCE_TYPES type = resource.getResourceType();
 			
 			if(type.getValue() == id) {
@@ -103,7 +109,7 @@ public class TownEntity {
 			}
 		}
 	}
-	public TownResources[] getAllResources() { return this.resources; }
+	public List<TownResources> getAllResources() { return this.resources; }
 	
 	public int getPopulation() { return this.population; }
     public void setPopulation(int x) {
