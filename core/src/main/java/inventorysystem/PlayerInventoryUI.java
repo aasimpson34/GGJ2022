@@ -35,7 +35,7 @@ public class PlayerInventoryUI extends WorldEntityUI{
 		{
 			m_regions[x] = m_atlas.findRegion("Resource", x+1);
 		}
-		m_font = ResourceLookup.getInstance().getFont("font.ttf");
+		m_font = ResourceLookup.getInstance().getFont("font30.ttf");
 	}
 	
 	@Override
