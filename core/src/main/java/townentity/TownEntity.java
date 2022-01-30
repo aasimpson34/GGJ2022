@@ -19,6 +19,7 @@ import userInterface.WorldEntityUI;
  */
 
 public class TownEntity {
+	private String name;
 	private int population;
 	private int populationLimit;
 	private int reputation;
@@ -264,6 +265,9 @@ public class TownEntity {
     
     public int getPositionX() { return this.positionX; }
     public int getPositionY() { return this.positionY; }
+    
+    public void setTownName(String x) { this.name = x; }
+    public String getTownName() { return this.name; }
     
     public void debugOverview() {
     	System.out.println("\n#INI# Town Entity - Overview #INI#");
