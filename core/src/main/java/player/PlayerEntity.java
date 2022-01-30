@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 
 import entity.GameObjectEntity;
+import inventorysystem.InventorySystem;
+import inventorysystem.PlayerInventoryUI;
 import worldmap.WorldMap;
 
 public class PlayerEntity extends GameObjectEntity{
@@ -14,6 +16,9 @@ public class PlayerEntity extends GameObjectEntity{
 	
 	Vector2 m_playerPosition;
 	Vector2 m_velocity;
+	
+	PlayerInventoryUI m_playerInventoryUIRenderer;
+	InventorySystem m_playerInventorySystem;
 	
 	/**
 	 *  
@@ -24,6 +29,8 @@ public class PlayerEntity extends GameObjectEntity{
 		m_playerPosition = new Vector2();
 		m_velocity = new Vector2();
 		
+		m_playerInventoryUIRenderer = new PlayerInventoryUI();
+		m_playerInventorySystem = new InventorySystem();
 	}
 	
 	@Override
@@ -114,6 +121,11 @@ public class PlayerEntity extends GameObjectEntity{
 	 */
 	public Vector2 getPosition() {
 		return m_playerPosition;
+	}
+
+	@Override
+	public void renderUI() {
+		m_playerInventoryUIRenderer.render(m_playerInventorySystem);
 	}
 
 }

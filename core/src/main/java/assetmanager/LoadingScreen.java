@@ -9,9 +9,14 @@
 package assetmanager;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
+import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 
 import renderer.GameRenderer;
 
@@ -33,7 +38,14 @@ public class LoadingScreen{
 		
 		m_assetManager.load("world_atlas.atlas",TextureAtlas.class);
 		m_assetManager.load("player.atlas",TextureAtlas.class);
-
+		
+		FileHandleResolver resolver = new InternalFileHandleResolver();
+		m_assetManager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
+		m_assetManager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
+	    FreetypeFontLoader.FreeTypeFontLoaderParameter params = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+	    params.fontFileName = "font.ttf";
+	    params.fontParameters.size = 30;
+	    m_assetManager.load("font.ttf", BitmapFont.class, params);
 	}
 	
 	public boolean update(){

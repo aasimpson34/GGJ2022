@@ -9,6 +9,7 @@
 package assetmanager;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 /**
@@ -39,5 +40,9 @@ public class ResourceLookup {
 	
 	public TextureAtlas getTextureAtlas(String string) {
 		return m_assetManager.get(string, TextureAtlas.class);
+	}
+	
+	public BitmapFont getFont(String string) {
+		return m_assetManager.get(string, BitmapFont.class);
 	}
 }
