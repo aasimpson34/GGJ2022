@@ -62,17 +62,18 @@ public class WorldChunk {
 				TileRenderer.renderTile(region, x, y, xOffset, yOffset);
 			}
 		}
+		for(TownEntity entity : m_townEntity) {
+			entity.render(xOffset, yOffset);
+		}
 	}
 	
 	public void renderUI(int xOffset, int yOffset)
 	{
-
 		if(renderTownPrompt)
 		{
 			m_bitmapFont.draw(GameRenderer.getInstance().getBatch(), "Press E to interact", m_townPromptPosition.x * 64, m_townPromptPosition.y * 47);
 		}
 		for(TownEntity entity : m_townEntity) {
-			entity.render(xOffset, yOffset);
 			entity.renderUI();
 		}
 		
@@ -98,9 +99,11 @@ public class WorldChunk {
 			Polygon townCol = generateHexCollisionTile(entity.getPositionX(), entity.getPositionY(), m_xChunkPosition, m_yChunkPosition);
 			if(townCol.contains(playerLeft) || townCol.contains(playerRight))
 			{
+				System.out.println("col");
 				renderTownPrompt = true;
 				m_townPromptPosition = new Vector2(entity.getPositionX(), entity.getPositionY());
 				entity.updateUI();
+				break;
 			} else {
 				entity.forceCloseUI();
 				renderTownPrompt = false;
