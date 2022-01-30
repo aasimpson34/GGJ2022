@@ -36,21 +36,21 @@ public class TownWorldEntityUI extends WorldEntityUI {
 			return;
 		}
 		
-		String TownNameText = "Temp Name";
-		renderLabel(TownNameText, getOrigin().x - 375, getOrigin().y + 260, 750, Color.RED, 3, 1, true);
+		String TownNameText = townEntity.getTownName();
+		renderLabel(TownNameText, getOrigin().x - 375, getOrigin().y + 250, 750, Color.BLACK, 30, 1, true);
 		
 		renderWindow(getOrigin().x - 375, getOrigin().y + 200, 750, 10);
-		renderLabel("Hated", getOrigin().x - 375, getOrigin().y + 175, 100, Color.WHITE, 1, -1, false);
-		renderLabel("Neutral", getOrigin().x - 375, getOrigin().y + 175, 750, Color.WHITE, 1, 1, false);
-		renderLabel("Friendly", getOrigin().x + 275, getOrigin().y + 175, 100, Color.WHITE, 1, 0, false);
+		renderLabel("Hated", getOrigin().x - 375, getOrigin().y + 175, 100, Color.WHITE, 20, -1, false);
+		renderLabel("Neutral", getOrigin().x - 375, getOrigin().y + 175, 750, Color.WHITE, 20, 1, false);
+		renderLabel("Friendly", getOrigin().x + 275, getOrigin().y + 175, 100, Color.WHITE, 20, 0, false);
 		
 		float barPositionX = mapValueToRange(townEntity.getReputation(), 0, 100, getOrigin().x - 375, getOrigin().x + 375);
 		renderWindow(barPositionX, getOrigin().y + 197, 5, 15);
 		
 		float xCol = getOrigin().x + 415;
 		String populationText = "Population: " + townEntity.getPopulation();
-		renderLabel(populationText, xCol, getOrigin().y + 170, 150, Color.BLACK, 1.5f, -1, false);
-		renderLabel("RESOURCES", xCol, getOrigin().y + 135, 150, Color.BLACK, 1.5f, -1, true);
+		renderLabel(populationText, xCol, getOrigin().y + 170, 150, Color.BLACK, 20, -1, false);
+		renderLabel("RESOURCES", xCol, getOrigin().y + 135, 150, Color.BLACK, 20, -1, true);
 		
 		TownResources[] resources = townEntity.getAllResources();
 		for(int i = 0; i < resources.length; i++) {
@@ -59,18 +59,18 @@ public class TownWorldEntityUI extends WorldEntityUI {
 			float posY = getOrigin().y + 110 - (i * gapSize);
 			
 			String resourceText = el.getAmount() + "/" + el.getResourceLimit();
-			renderLabel(resourceText, xCol + 30, posY, 150, Color.BLACK, 1, -1, false);
+			renderLabel(resourceText, xCol + 30, posY, 150, Color.BLACK, 20, -1, false);
 			renderIcon(el.getResourceType().getValue() + 1, xCol, posY, 25, 25);
 		}
 		
-		renderLabel("WORKERS", xCol, getOrigin().y - 25, 150, Color.BLACK, 1.5f, -1, true);
+		renderLabel("WORKERS", xCol, getOrigin().y - 25, 150, Color.BLACK, 20, -1, true);
 		for(int i = 0; i < resources.length; i++) {
 			TownResources el = resources[i];
 			float gapSize = 30;
 			float posY = getOrigin().y - 50 - (i * gapSize);
 			
 			String resourceText = el.getWorkers() + "";
-			renderLabel(resourceText, xCol + 30, posY, 150, Color.BLACK, 1, -1, false);
+			renderLabel(resourceText, xCol + 30, posY, 150, Color.BLACK, 20, -1, false);
 			renderIcon(el.getResourceType().getValue() + 1, xCol, posY, 25, 25);
 		}
 	}

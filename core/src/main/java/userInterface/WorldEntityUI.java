@@ -47,11 +47,37 @@ public abstract class WorldEntityUI {
 	public void setIsShowing(boolean x) { this.isShowing = x; }
 	public boolean getIsShowing() { return this.isShowing; }
 	
+	public boolean renderTradeWindow(float x, float y, float width, float height)
+	{
+		batch = GameRenderer.getInstance().getBatch();
+		NinePatch background = new NinePatch(new Texture(Gdx.files.internal("user_interface/window_9patch.png")), 10, 10, 10, 10);
+		
+		Vector3 position = GameCamera.getInstance().getMouseCoords( new Vector2(Gdx.input.getX(),  Gdx.input.getY()));
+		boolean hovered = false;
+		if(position.x >= x && position.x <= x + width && position.y > y && position.y <= y + height) {
+			batch.setColor(Color.YELLOW);
+			hovered = true;
+	    }
+		else {
+			batch.setColor(Color.WHITE);
+		}
+		
+		background.draw(batch, x, y, width, height);
+		
+		if(hovered) {
+			batch.setColor(Color.WHITE);
+			if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+				
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	public void renderWindow(float x, float y, float width, float height)
 	{
 		batch = GameRenderer.getInstance().getBatch();
-		
-		
 		NinePatch background = new NinePatch(new Texture(Gdx.files.internal("user_interface/window_9patch.png")), 10, 10, 10, 10);
 		background.draw(batch, x, y, width, height);
 	}
@@ -73,7 +99,7 @@ public abstract class WorldEntityUI {
 			batch.setColor(Color.WHITE);
 		
 		button.draw(batch, x, y, width, height);
-		renderLabel(button_label, x, y + (height / 2) - 8, width, Color.BLACK, 1.5f, 1, true);
+		renderLabel(button_label, x, y + (height / 2) - 11, width, Color.BLACK, 20, 1, true);
 		
 		if(hovered)
 		{
@@ -93,19 +119,13 @@ public abstract class WorldEntityUI {
 		batch.draw(icon, x, y, width, height);
 	}
 	
-	public void renderLabel(String label, float x, float y, float width, Color colour, float size, int align, boolean gameFont)
-	{
-		FreetypeFontLoader.FreeTypeFontLoaderParameter fontLoader = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-		fontLoader.fontFileName = "font.ttf";
-		fontLoader.fontParameters.size = (int) size;
-	    String fontName = "font" + (int) size + ".ttf";
-	    this.assetManager.load(fontName, BitmapFont.class, fontLoader);
-	    
+	public void renderLabel(String label, float x, float y, float width, Color colour, int size, int align, boolean gameFont)
+	{   
 		batch = GameRenderer.getInstance().getBatch();
 		BitmapFont font = new BitmapFont();
 		
 		if(gameFont) {			
-			font = ResourceLookup.getInstance().getFont(fontName);
+			font = ResourceLookup.getInstance().getFont("font" + (int)size + ".ttf");
 		}
 		
 		float lineHeight = font.getData().lineHeight;
