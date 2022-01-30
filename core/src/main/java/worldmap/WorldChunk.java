@@ -3,6 +3,7 @@ package worldmap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -25,16 +26,21 @@ public class WorldChunk {
 
 	Array<Polygon> m_collision;
 	
+	boolean renderTownPrompt;
+	Vector2 m_townPromptPosition;
+	
 	int tileId[][] = new int[CHUNK_SIZE][CHUNK_SIZE];
 	
 	//Array which contains the town entities for the chunk.
 	Array<TownEntity> m_townEntity;
+	BitmapFont m_bitmapFont;
 	
 	public WorldChunk(int x, int y)
 	{
 		m_xChunkPosition = x;
 		m_yChunkPosition = y;
 		m_collision = new Array<Polygon>();
+		m_bitmapFont = new BitmapFont();
 	}
 	
 	public void render(int xOffset, int yOffset)
@@ -56,11 +62,20 @@ public class WorldChunk {
 				TileRenderer.renderTile(region, x, y, xOffset, yOffset);
 			}
 		}
-		
+	}
+	
+	public void renderUI(int xOffset, int yOffset)
+	{
+
+		if(renderTownPrompt)
+		{
+			m_bitmapFont.draw(GameRenderer.getInstance().getBatch(), "Press E to interact", m_townPromptPosition.x * 64, m_townPromptPosition.y * 47);
+		}
 		for(TownEntity entity : m_townEntity) {
 			entity.render(xOffset, yOffset);
 			entity.renderUI();
 		}
+		
 	}
 	
 	public void update(PlayerEntity player)
@@ -83,9 +98,12 @@ public class WorldChunk {
 			Polygon townCol = generateHexCollisionTile(entity.getPositionX(), entity.getPositionY(), m_xChunkPosition, m_yChunkPosition);
 			if(townCol.contains(playerLeft) || townCol.contains(playerRight))
 			{
+				renderTownPrompt = true;
+				m_townPromptPosition = new Vector2(entity.getPositionX(), entity.getPositionY());
 				entity.updateUI();
 			} else {
 				entity.forceCloseUI();
+				renderTownPrompt = false;
 			}
 		}
 		

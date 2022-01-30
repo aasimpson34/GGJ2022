@@ -193,6 +193,17 @@ public class WorldMap {
 			}
 		}
 	}
+	
+	public void renderUI() 
+	{
+		for(int x = 0; x < 3; x++)
+		{
+			for(int y = 0; y < 3; y++)
+			{
+				m_activeChunks[x][y].renderUI(x-1, y-1);
+			}
+		}
+	}
 
 	/**
 	 * @return

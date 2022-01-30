@@ -70,6 +70,7 @@ public class TownEntity {
 		if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
 			this.townInterface.setIsShowing(true);
 		}
+		System.out.println("test");
 		if(Gdx.input.isButtonJustPressed(Input.Buttons.RIGHT)){
 			this.townInterface.setIsShowing(false);
 		}
