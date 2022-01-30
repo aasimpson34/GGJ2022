@@ -9,7 +9,9 @@
 package userInterface;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
 
+import camera.GameCamera;
 import townentity.TownEntity;
 import townentity.TownResources;
 
@@ -20,6 +22,7 @@ import townentity.TownResources;
 public class TownWorldEntityUI extends WorldEntityUI {
 	
 	private TownEntity townEntity;
+	
 	@Override
 	public void update() {
 		townEntity = getTownEntity();
@@ -27,39 +30,39 @@ public class TownWorldEntityUI extends WorldEntityUI {
 
 	@Override
 	public void render() {
-		renderWindow(0, 0, 800, 600, 0);
-		renderWindow(800, 100, 200, 400, 0);
-		renderButton("Engage Battle", 25, 25, 750, 50);
+		setOriginPoints();
+		
+		renderWindow(getOrigin().x - 400, getOrigin().y - 300, 800, 600, 0);
+		renderWindow(getOrigin().x + 400, getOrigin().y - 200, 200, 400, 0);
+		renderButton("Engage Battle", getOrigin().x - 375, getOrigin().x - 275, 750, 50);
 		
 		if(this.townEntity == null) {
 			return;
 		}
 		
 		String populationText = "Population: " + this.townEntity.getPopulation();
-		renderLabel(populationText, 825, 475, 150, Color.RED, 1, -1);
+		renderLabel(populationText, getOrigin().x + 425, getOrigin().y + 175, 150, Color.RED, 1, -1);
 		
 		String TownNameText = "Temp Name";
-		renderLabel(TownNameText, 25, 560, 750, Color.RED, 3, 1);
+		renderLabel(TownNameText, getOrigin().x - 375, getOrigin().y + 260, 750, Color.RED, 3, 1);
 		
-		renderWindow(25, 500, 750, 10, 1);
-		renderLabel("Hated", 25, 475, 100, Color.WHITE, 1, -1);
-		renderLabel("Neutral", 25, 475, 750, Color.WHITE, 1, 1);
-		renderLabel("Friendly", 675, 475, 100, Color.WHITE, 1, 0);
+		renderWindow(getOrigin().x - 375, getOrigin().y + 200, 750, 10, 1);
+		renderLabel("Hated", getOrigin().x - 375, getOrigin().y + 175, 100, Color.WHITE, 1, -1);
+		renderLabel("Neutral", getOrigin().x - 375, getOrigin().y + 175, 750, Color.WHITE, 1, 1);
+		renderLabel("Friendly", getOrigin().x + 375, getOrigin().y + 175, 100, Color.WHITE, 1, 0);
 		
-		int barPositionX = mapValueToRange(this.townEntity.getReputation(), 0, 100, 25, 775);
-		renderWindow(barPositionX, 498, 5, 14, 2);
+		float barPositionX = mapValueToRange(this.townEntity.getReputation(), 0, 100, getOrigin().x - 375, getOrigin().x + 375);
+		renderWindow(barPositionX, getOrigin().y + 195, 5, 14, 2);
 		
 		TownResources[] resources = this.townEntity.getAllResources();
 		for(int i = 0; i < resources.length; i++) {
 			TownResources el = resources[i];
 			String resourceText = el.getResourceType().toString() + ": " + el.getAmount() + "/" + el.getResourceLimit();
-			renderLabel(resourceText, 825, 450 - (i * 25), 150, Color.RED, 1, -1);
+			renderLabel(resourceText, getOrigin().x + 425, (getOrigin().y + 150) - (i * 25), 150, Color.RED, 1, -1);
 		}
-		
-		
 	}
 	
-	private int mapValueToRange(int value, int currentMin, int currentMax, int targetMin, int targetMax) {
+	private float mapValueToRange(float value, float currentMin, float currentMax, float targetMin, float targetMax) {
 		return targetMin + (targetMax - targetMin) * (value - currentMin) / (currentMax - currentMin);
 	}
 
