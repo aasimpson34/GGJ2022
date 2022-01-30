@@ -30,6 +30,7 @@ public abstract class WorldEntityUI {
 	private SpriteBatch batch;
 	private boolean isShowing = false;
 	private Vector2 originPoint = new Vector2(0, 0);
+	private TownEntity townEntity;
 	
 	public abstract void update();
 	public abstract void render();
@@ -97,7 +98,6 @@ public abstract class WorldEntityUI {
 		this.originPoint = cameraPos;
 	}
 	public Vector2 getOrigin() { return this.originPoint; }
-	public TownEntity townEntity;
 	public void setTownEntity(TownEntity town) { this.townEntity = town; }
 	public TownEntity getTownEntity() { return this.townEntity; }
 }

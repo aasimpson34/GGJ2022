@@ -21,11 +21,8 @@ import townentity.TownResources;
  */
 public class TownWorldEntityUI extends WorldEntityUI {
 	
-	private TownEntity townEntity;
-	
 	@Override
 	public void update() {
-		townEntity = getTownEntity();
 	}
 
 	@Override
@@ -36,11 +33,12 @@ public class TownWorldEntityUI extends WorldEntityUI {
 		renderWindow(getOrigin().x + 400, getOrigin().y - 200, 200, 400, 0);
 		renderButton("Engage Battle", getOrigin().x - 375, getOrigin().x - 275, 750, 50);
 		
-		if(this.townEntity == null) {
+		TownEntity townEntity = getTownEntity();
+		if(townEntity == null) {
 			return;
 		}
 		
-		String populationText = "Population: " + this.townEntity.getPopulation();
+		String populationText = "Population: " + townEntity.getPopulation();
 		renderLabel(populationText, getOrigin().x + 425, getOrigin().y + 175, 150, Color.RED, 1, -1);
 		
 		String TownNameText = "Temp Name";
@@ -51,10 +49,10 @@ public class TownWorldEntityUI extends WorldEntityUI {
 		renderLabel("Neutral", getOrigin().x - 375, getOrigin().y + 175, 750, Color.WHITE, 1, 1);
 		renderLabel("Friendly", getOrigin().x + 375, getOrigin().y + 175, 100, Color.WHITE, 1, 0);
 		
-		float barPositionX = mapValueToRange(this.townEntity.getReputation(), 0, 100, getOrigin().x - 375, getOrigin().x + 375);
+		float barPositionX = mapValueToRange(townEntity.getReputation(), 0, 100, getOrigin().x - 375, getOrigin().x + 375);
 		renderWindow(barPositionX, getOrigin().y + 195, 5, 14, 2);
 		
-		TownResources[] resources = this.townEntity.getAllResources();
+		TownResources[] resources = townEntity.getAllResources();
 		for(int i = 0; i < resources.length; i++) {
 			TownResources el = resources[i];
 			String resourceText = el.getResourceType().toString() + ": " + el.getAmount() + "/" + el.getResourceLimit();
