@@ -45,7 +45,13 @@ public class LoadingScreen{
 	    FreetypeFontLoader.FreeTypeFontLoaderParameter params = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
 	    params.fontFileName = "font.ttf";
 	    params.fontParameters.size = 30;
-	    m_assetManager.load("font.ttf", BitmapFont.class, params);
+	    m_assetManager.load("font30.ttf", BitmapFont.class, params);
+	    
+	    FreetypeFontLoader.FreeTypeFontLoaderParameter params2 = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+	    params2.fontFileName = "font.ttf";
+	    params2.fontParameters.size = 20;
+	    m_assetManager.load("font20.ttf", BitmapFont.class, params2);
+
 	}
 	
 	public boolean update(){
