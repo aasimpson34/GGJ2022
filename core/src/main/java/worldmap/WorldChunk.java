@@ -57,20 +57,20 @@ public class WorldChunk {
 			}
 		}
 		
-		for(TownEntity entity : m_townEntity)
+		for(TownEntity entity : m_townEntity) {
 			entity.render(xOffset, yOffset);
+			entity.renderUI();
+		}
 	}
 	
 	public void update(PlayerEntity player)
 	{
+		
 		for(TownEntity entity : m_townEntity)
 		{
 			entity.update();
+			entity.updateEntityUI(entity);
 			
-			//Check if the player is within a town entity hex
-			//tell the town that the player is near (draw a prompt)
-			//if the player interacts then tell the town entity to render its
-			// ui.
 			Vector2 global = player.getPosition().cpy();
 			global.y+= 5;
 			
@@ -83,7 +83,9 @@ public class WorldChunk {
 			Polygon townCol = generateHexCollisionTile(entity.getPositionX(), entity.getPositionY(), m_xChunkPosition, m_yChunkPosition);
 			if(townCol.contains(playerLeft) || townCol.contains(playerRight))
 			{
-				
+				entity.updateUI();
+			} else {
+				entity.forceCloseUI();
 			}
 		}
 		
