@@ -10,6 +10,7 @@ package userInterface;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -37,6 +39,7 @@ public abstract class WorldEntityUI {
 	private boolean isShowing = false;
 	private Vector2 originPoint = new Vector2(0, 0);
 	private TownEntity townEntity;
+	private AssetManager assetManager = new AssetManager();;
 	
 	public abstract void update();
 	public abstract void render();
@@ -90,17 +93,23 @@ public abstract class WorldEntityUI {
 		batch.draw(icon, x, y, width, height);
 	}
 	
-	public void renderLabel(String label, float x, float y, float width, Color colour, float scale, int align, boolean gameFont)
+	public void renderLabel(String label, float x, float y, float width, Color colour, float size, int align, boolean gameFont)
 	{
-		
+		FreetypeFontLoader.FreeTypeFontLoaderParameter fontLoader = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+		fontLoader.fontFileName = "font.ttf";
+		fontLoader.fontParameters.size = (int) size;
+	    String fontName = "font" + (int) size + ".ttf";
+	    this.assetManager.load(fontName, BitmapFont.class, fontLoader);
+	    
 		batch = GameRenderer.getInstance().getBatch();
 		BitmapFont font = new BitmapFont();
+		
 		if(gameFont) {			
-			font = ResourceLookup.getInstance().getFont("font20.ttf");
+			font = ResourceLookup.getInstance().getFont(fontName);
 		}
-		font.setColor(colour);
+		
 		float lineHeight = font.getData().lineHeight;
-		//font.getData().setScale(scale);
+		font.setColor(colour);
 		font.draw(batch, label, x, y + lineHeight, width, align, false);
 	}
 	
