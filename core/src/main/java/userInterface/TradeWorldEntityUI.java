@@ -17,7 +17,7 @@ public class TradeWorldEntityUI extends WorldEntityUI {
 		
 		renderLabel("Trading Post", getOrigin().x - 375, getOrigin().y + 115, 750, Color.RED, 2, -1);
 		for(int i = 0; i < tradeLimit; i++) {			
-			renderWindow(getOrigin().x - 375, getOrigin().y + 50 - (i * 60), 750, 50, 1);
+			renderWindow(getOrigin().x - 375, getOrigin().y + 50 - (i * 60), 750, 50);
 		}
 	}
 

@@ -13,6 +13,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -38,36 +39,22 @@ public abstract class WorldEntityUI {
 	public void setIsShowing(boolean x) { this.isShowing = x; }
 	public boolean getIsShowing() { return this.isShowing; }
 	
-	public void renderWindow(float x, float y, float width, float height, int textureType)
+	public void renderWindow(float x, float y, float width, float height)
 	{
 		batch = GameRenderer.getInstance().getBatch();
 		
-		Texture background; 
 		
-		switch(textureType) {
-			case 1:
-				background = new Texture(Gdx.files.internal("user_interface/debug_white.png"));
-				break;
-			case 2:
-				background = new Texture(Gdx.files.internal("user_interface/debug_red.png"));
-				break;
-			default:
-				background = new Texture(Gdx.files.internal("user_interface/debug_black.png"));
-				break;
-		}
-		
-		
-		batch.draw(background, x, y, width, height);
+		NinePatch background = new NinePatch(new Texture(Gdx.files.internal("user_interface/window_9patch.png")), 10, 10, 10, 10);
+		background.draw(batch, x, y, width, height);
 	}
 	
 	public boolean renderButton(String button_label, float x, float y, float width, float height)
 	{
 		batch = GameRenderer.getInstance().getBatch();
-		Texture button = new Texture(Gdx.files.internal("user_interface/debug_white.png"));
-		batch.draw(button, x, y, width, height);
 		
-		Color colour = Color.RED;
-		renderLabel(button_label, x, y + (height / 2) - 5, width, colour, 2, 1);
+		NinePatch button = new NinePatch(new Texture(Gdx.files.internal("user_interface/button_9patch.png")), 10, 10, 10, 10);
+		button.draw(batch, x, y, width, height);
+		renderLabel(button_label, x, y + (height / 2) - 8, width, Color.BLACK, 1.5f, 1);
 		
 		if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
 			float mouseX = Gdx.input.getX();
@@ -82,7 +69,7 @@ public abstract class WorldEntityUI {
 		return false;
 	}
 	
-	public void renderLabel(String label, float x, float y, float width, Color colour, int scale, int align)
+	public void renderLabel(String label, float x, float y, float width, Color colour, float scale, int align)
 	{
 		batch = GameRenderer.getInstance().getBatch();
 		BitmapFont font = new BitmapFont();
