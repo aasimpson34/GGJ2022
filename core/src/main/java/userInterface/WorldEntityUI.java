@@ -21,6 +21,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 import assetmanager.ResourceLookup;
 import camera.GameCamera;
@@ -58,20 +59,30 @@ public abstract class WorldEntityUI {
 	public boolean renderButton(String button_label, float x, float y, float width, float height)
 	{
 		batch = GameRenderer.getInstance().getBatch();
-		
+		Vector3 position = GameCamera.getInstance().getMouseCoords( new Vector2(Gdx.input.getX(),  Gdx.input.getY()));
 		NinePatch button = new NinePatch(new Texture(Gdx.files.internal("user_interface/button_9patch.png")), 10, 10, 10, 10);
+		boolean hovered = false;
+		if(position.x >= x && position.x <= x + width &&
+		   position.y > y && position.y <= y + height)
+		{
+			batch.setColor(Color.YELLOW);
+			hovered = true;
+			
+	    }
+		else
+			batch.setColor(Color.WHITE);
+		
 		button.draw(batch, x, y, width, height);
 		renderLabel(button_label, x, y + (height / 2) - 8, width, Color.BLACK, 1.5f, 1, true);
 		
-		if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
-			float mouseX = Gdx.input.getX();
-			float mouseY = Gdx.input.getY();
-			if(mouseX >= x && mouseX <= x + width) {
-				if(mouseY > y && mouseY <= y + height) {
-					return true;
-				}
+		if(hovered)
+		{
+			batch.setColor(Color.WHITE);
+			if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
+				
+				return true;
 			}
-	    }
+		}
 		
 		return false;
 	}

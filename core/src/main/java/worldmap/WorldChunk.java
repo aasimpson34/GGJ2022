@@ -45,6 +45,10 @@ public class WorldChunk {
 	
 	public void render(int xOffset, int yOffset)
 	{
+		
+		m_xChunkPosition = xOffset;
+		m_yChunkPosition = yOffset;
+		
 		for(int x = 0; x < CHUNK_SIZE; x++)
 		{
 			for(int y = 0; y < CHUNK_SIZE; y++)
@@ -81,7 +85,8 @@ public class WorldChunk {
 	
 	public void update(PlayerEntity player)
 	{
-		
+		renderTownPrompt = false;
+
 		for(TownEntity entity : m_townEntity)
 		{
 			entity.update();
@@ -105,7 +110,6 @@ public class WorldChunk {
 				break;
 			} else {
 				entity.forceCloseUI();
-				renderTownPrompt = false;
 			}
 		}
 		
