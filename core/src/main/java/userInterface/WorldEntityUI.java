@@ -85,7 +85,7 @@ public abstract class WorldEntityUI {
 		batch = GameRenderer.getInstance().getBatch();
 		BitmapFont font = new BitmapFont();
 		if(gameFont) {			
-			font = ResourceLookup.getInstance().getFont("font.ttf");
+			font = ResourceLookup.getInstance().getFont("font20.ttf");
 		}
 		font.setColor(colour);
 		float lineHeight = font.getData().lineHeight;
