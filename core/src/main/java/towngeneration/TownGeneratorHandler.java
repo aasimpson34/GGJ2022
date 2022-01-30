@@ -1,5 +1,8 @@
 package towngeneration;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
@@ -18,6 +21,9 @@ public class TownGeneratorHandler {
 		}
 		
 		TownEntity town = new TownEntity(x, y);
+		
+		String townName = getRandomName();
+		town.setTownName(townName);
 		
 		TOWN_TYPES townLevel = getTownLevel();
 		town.setTownType(townLevel);
@@ -58,6 +64,24 @@ public class TownGeneratorHandler {
 		}
 		
 		return town;
+	}
+	
+	private Set<String> identifiers = new HashSet<String>();
+	private String getRandomName() {
+		final String lexicon = "ABCDEFGHIJKLMNOPQRSTUVWXYZ12345674890";
+		java.util.Random rand = new java.util.Random();
+		
+		StringBuilder builder = new StringBuilder();
+	    while(builder.toString().length() == 0) {
+	        int length = rand.nextInt(5)+5;
+	        for(int i = 0; i < length; i++) {
+	            builder.append(lexicon.charAt(rand.nextInt(lexicon.length())));
+	        }
+	        if(identifiers.contains(builder.toString())) {
+	            builder = new StringBuilder();
+	        }
+	    }
+	    return builder.toString();
 	}
 	
 	private JsonValue loadConfig() {
