@@ -2,15 +2,10 @@ package worldmapstate;
 
 import camera.GameCamera;
 import entity.GameObjectEntityHandler;
+import inventorysystem.PlayerInventoryUI;
 import player.PlayerEntity;
 import renderer.GameRenderer;
 import states.GameState;
-import townentity.TownEntity;
-import towngeneration.TownGeneratorHandler;
-import userInterface.TownWorldEntityUI;
-import userInterface.WorldEntityUI;
-import worldgeneration.WorldGenerator;
-import worldmap.WorldChunk;
 import worldmap.WorldMap;
 
 public class WorldMapState implements GameState {
@@ -55,12 +50,13 @@ public class WorldMapState implements GameState {
 		GameRenderer.getInstance().getBatch().setProjectionMatrix(GameCamera.getInstance().getProjection());
 		GameRenderer.getInstance().getBatch().begin();
 		m_worldMap.render();
-		
+		GameObjectEntityHandler.getInstance().render();
+
 		//debugTown.render(0, 0);
 		//townUI.render();
 		m_worldMap.renderUI();
+		m_playerEntity.renderUI();
 
-		GameObjectEntityHandler.getInstance().render();
 		GameRenderer.getInstance().getBatch().end();
 	}
 

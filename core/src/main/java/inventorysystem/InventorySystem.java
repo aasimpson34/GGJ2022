@@ -1,5 +1,7 @@
 package inventorysystem;
 
+import java.util.Random;
+
 /**
  * This inventory system will contain everything the user can keep
  * 
@@ -27,7 +29,7 @@ public class InventorySystem {
 		//Set Initial resources to 0.
 		for(int x = 0; x < RESOURCE_TYPES.E_MAX_COUNT.getValue(); x++)
 		{
-			m_currentInventoryNumber[x] = 0;
+			m_currentInventoryNumber[x] = new Random().nextInt(100);
 		}
 	}
 	
@@ -58,7 +60,7 @@ public class InventorySystem {
 	 */
 	public int getResourceCount(RESOURCE_TYPES type)
 	{
-		return type.getValue();
+		return m_currentInventoryNumber[type.getValue()];
 	}
 	
 	

@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum RESOURCE_TYPES {
-	E_WOOD(0),
-	E_METAL(1),
-	E_ORE(2),
-	E_LINEN(3), 
+	E_WOOD(0, "Wood"),
+	E_METAL(1, "Metal"),
+	E_ORE(2, "Ore"),
+	E_LINEN(3, "Linen"), 
 	
-	E_MAX_COUNT(E_LINEN.getValue() + 1);
+	E_MAX_COUNT(E_LINEN.getValue() + 1, "");
 	
 	private static final Map<Integer, RESOURCE_TYPES> lookup = new HashMap<Integer, RESOURCE_TYPES>();
 	
@@ -21,8 +21,11 @@ public enum RESOURCE_TYPES {
 	}
 	
 	private final int id;
-	RESOURCE_TYPES(int id) { this.id = id; }
+	private final String name;
+	
+	RESOURCE_TYPES(int id, String name) { this.id = id; this.name = name; }
     public int getValue() { return id; }
+    public String getName() {return name;};
     
     public static RESOURCE_TYPES get(int type)
     {

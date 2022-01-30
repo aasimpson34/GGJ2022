@@ -99,7 +99,6 @@ public class WorldChunk {
 			Polygon townCol = generateHexCollisionTile(entity.getPositionX(), entity.getPositionY(), m_xChunkPosition, m_yChunkPosition);
 			if(townCol.contains(playerLeft) || townCol.contains(playerRight))
 			{
-				System.out.println("col");
 				renderTownPrompt = true;
 				m_townPromptPosition = new Vector2(entity.getPositionX(), entity.getPositionY());
 				entity.updateUI();

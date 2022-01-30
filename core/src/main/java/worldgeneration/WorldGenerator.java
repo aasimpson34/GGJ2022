@@ -26,6 +26,14 @@ public class WorldGenerator {
 		
 		random_generator = new Random(unique_seed_number);
 		
+		//Clear town grid
+		for(int xR = 0; xR < 32; xR++)
+		{
+			for(int yR = 0; yR < 32; yR++)
+			{
+				townGrid[xR][yR] = false;
+			}
+		}
 		
 		int tiles_id[][] = generateTerrain();
 		Array<TownEntity> townEntities = generateTowns();
@@ -34,6 +42,7 @@ public class WorldGenerator {
 		generatedWorldChunk.setTownEntities(townEntities);
 		generatedWorldChunk.setTiles(tiles_id);
 
+		
 		return generatedWorldChunk;
 	}
 	
@@ -130,7 +139,7 @@ public class WorldGenerator {
 	 */
 	private Array<TownEntity> generateTowns() {
 		//Randomly select the number of towns that will be assigned
-		int numberOfTownsToGenerate = random_generator.nextInt(5) + 1;
+		int numberOfTownsToGenerate = random_generator.nextInt(10) + 4;
 		
 	
 
