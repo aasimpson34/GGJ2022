@@ -1,18 +1,13 @@
 
 package worldmap;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 import assetmanager.ResourceLookup;
-import camera.GameCamera;
 import player.PlayerEntity;
 import renderer.GameRenderer;
 import renderer.TileRenderer;
@@ -85,12 +80,19 @@ public class WorldChunk {
 	
 	public void update(PlayerEntity player)
 	{
-		renderTownPrompt = false;
-
 		for(TownEntity entity : m_townEntity)
 		{
 			entity.update();
 			entity.updateEntityUI(entity);
+		}
+	}
+	
+	public void updateTownCollisions(PlayerEntity player)
+	{
+		renderTownPrompt = false;
+		for(TownEntity entity : m_townEntity)
+		{
+			
 			
 			Vector2 global = player.getPosition().cpy();
 			global.y+= 5;
@@ -101,7 +103,7 @@ public class WorldChunk {
 			Vector2 playerRight = global.cpy();
 			playerRight.x += 32;
 			
-			Polygon townCol = generateHexCollisionTile(entity.getPositionX(), entity.getPositionY(), m_xChunkPosition, m_yChunkPosition);
+			Polygon townCol = generateHexCollisionTile(entity.getPositionX(), entity.getPositionY(), 0, 0);
 			if(townCol.contains(playerLeft) || townCol.contains(playerRight))
 			{
 				renderTownPrompt = true;
@@ -112,8 +114,6 @@ public class WorldChunk {
 				entity.forceCloseUI();
 			}
 		}
-		
-		
 	}
 
 	/**
