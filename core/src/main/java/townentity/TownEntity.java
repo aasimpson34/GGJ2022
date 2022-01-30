@@ -1,11 +1,13 @@
 package townentity;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 
 import assetmanager.ResourceLookup;
 import inventorysystem.RESOURCE_TYPES;
+import player.PlayerEntity;
 import renderer.GameRenderer;
 import renderer.TileRenderer;
 import towngeneration.TOWN_TYPES;
@@ -37,6 +39,8 @@ public class TownEntity {
 	WorldEntityUI m_worldEntityUI;
 	private float lastUpdate;
 	
+	private WorldEntityUI townInterface;
+	
 	public TownEntity(int x, int y) {
 		this.positionX = x;
 		this.positionY = y;
@@ -45,18 +49,38 @@ public class TownEntity {
 		resources = new TownResources[maxResources];
 		
 		m_worldEntityUI = new TownWorldEntityUI();
+		this.townInterface = new TownWorldEntityUI();
 	}
 	
 	public void render(int xOffset, int yOffset) {
 		renderTown(xOffset, yOffset);
 	}
-	public void renderTown(int xOffset, int yOffset) {
+	private void renderTown(int xOffset, int yOffset) {
 		int townId = this.townType.getValue() + 1;
 		AtlasRegion town = ResourceLookup.getInstance().getTextureAtlas("world_atlas.atlas").findRegion("town", townId);
 		TileRenderer.renderTile(town, this.positionX, this.positionY, xOffset, yOffset);
-
 	}
 
+	public void renderUI() {
+		if(this.townInterface != null && this.townInterface.getIsShowing()) {
+			this.townInterface.render();
+		}
+	}
+	public void updateUI() {
+		if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
+			this.townInterface.setIsShowing(true);
+		}
+		if(Gdx.input.isButtonJustPressed(Input.Buttons.RIGHT)){
+			this.townInterface.setIsShowing(false);
+		}
+	}
+	public void forceCloseUI() {
+		this.townInterface.setIsShowing(false);
+	}
+	public void updateEntityUI(TownEntity entity) {
+		this.townInterface.setTownEntity(entity);
+	}
+	
 	public boolean update() {
 		float updateTime = Gdx.graphics.getDeltaTime();
 		lastUpdate += updateTime;
