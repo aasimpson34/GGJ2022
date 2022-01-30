@@ -50,6 +50,8 @@ public class WorldMap {
 			}
 		}
 		
+		m_activeChunks[1][1].updateTownCollisions(playerEntity);
+		
 		boolean hasMoved = false;
 		
 		if(GameCamera.getInstance().getPosition().x < 0)
@@ -61,7 +63,7 @@ public class WorldMap {
 			GameCamera.getInstance().translate(2048,(int) GameCamera.getInstance().getPosition().y);
 			hasMoved = true;
 
-		}
+		} 
 		if(GameCamera.getInstance().getPosition().x > 2048)
 		{
 			//move chunks to the right
