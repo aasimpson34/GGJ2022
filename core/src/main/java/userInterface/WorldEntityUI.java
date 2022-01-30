@@ -15,10 +15,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
+import assetmanager.ResourceLookup;
 import camera.GameCamera;
+import inventorysystem.RESOURCE_TYPES;
 import renderer.GameRenderer;
 import townentity.TownEntity;
 
@@ -54,7 +58,7 @@ public abstract class WorldEntityUI {
 		
 		NinePatch button = new NinePatch(new Texture(Gdx.files.internal("user_interface/button_9patch.png")), 10, 10, 10, 10);
 		button.draw(batch, x, y, width, height);
-		renderLabel(button_label, x, y + (height / 2) - 8, width, Color.BLACK, 1.5f, 1);
+		renderLabel(button_label, x, y + (height / 2) - 8, width, Color.BLACK, 1.5f, 1, true);
 		
 		if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
 			float mouseX = Gdx.input.getX();
@@ -69,13 +73,23 @@ public abstract class WorldEntityUI {
 		return false;
 	}
 	
-	public void renderLabel(String label, float x, float y, float width, Color colour, float scale, int align)
+	public void renderIcon(int type, float x, float y, float width, float height) {
+		TextureAtlas atlas = ResourceLookup.getInstance().getTextureAtlas("world_atlas.atlas");
+		AtlasRegion icon = atlas.findRegion("Resource", type);
+		batch.draw(icon, x, y, width, height);
+	}
+	
+	public void renderLabel(String label, float x, float y, float width, Color colour, float scale, int align, boolean gameFont)
 	{
+		
 		batch = GameRenderer.getInstance().getBatch();
 		BitmapFont font = new BitmapFont();
+		if(gameFont) {			
+			font = ResourceLookup.getInstance().getFont("font.ttf");
+		}
 		font.setColor(colour);
 		float lineHeight = font.getData().lineHeight;
-		font.getData().setScale(scale);
+		//font.getData().setScale(scale);
 		font.draw(batch, label, x, y + lineHeight, width, align, false);
 	}
 	
