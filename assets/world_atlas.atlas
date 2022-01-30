@@ -4,6 +4,34 @@ size: 1024, 128
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
+Resource
+  rotate: false
+  xy: 0, 0
+  size: 48, 44
+  orig: 64, 64
+  offset: 6, 10
+  index: 4
+Resource
+  rotate: false
+  xy: 704, 88
+  size: 44, 40
+  orig: 64, 64
+  offset: 12, 12
+  index: 1
+Resource
+  rotate: false
+  xy: 748, 98
+  size: 50, 30
+  orig: 64, 64
+  offset: 6, 16
+  index: 2
+Resource
+  rotate: false
+  xy: 704, 56
+  size: 40, 32
+  orig: 64, 64
+  offset: 10, 16
+  index: 3
 forest
   rotate: false
   xy: 64, 45
