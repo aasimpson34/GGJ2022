@@ -27,9 +27,9 @@ public class WorldGenerator {
 		random_generator = new Random(unique_seed_number);
 		
 		
-		Array<TownEntity> townEntities = generateTowns();
 		int tiles_id[][] = generateTerrain();
-		
+		Array<TownEntity> townEntities = generateTowns();
+
 		WorldChunk generatedWorldChunk = new WorldChunk(x, y);
 		generatedWorldChunk.setTownEntities(townEntities);
 		generatedWorldChunk.setTiles(tiles_id);
