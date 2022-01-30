@@ -2,16 +2,14 @@ package townentity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 
 import assetmanager.ResourceLookup;
 import inventorysystem.RESOURCE_TYPES;
-import player.PlayerEntity;
-import renderer.GameRenderer;
 import renderer.TileRenderer;
 import towngeneration.TOWN_TYPES;
 import userInterface.TownWorldEntityUI;
+import userInterface.TradeWorldEntityUI;
 import userInterface.WorldEntityUI;
 
 /**
@@ -40,6 +38,7 @@ public class TownEntity {
 	private float lastUpdate;
 	
 	private WorldEntityUI townInterface;
+	private WorldEntityUI tradeInterface;
 	
 	public TownEntity(int x, int y) {
 		this.positionX = x;
@@ -50,12 +49,10 @@ public class TownEntity {
 		
 		m_worldEntityUI = new TownWorldEntityUI();
 		this.townInterface = new TownWorldEntityUI();
+		this.tradeInterface = new TradeWorldEntityUI();
 	}
 	
 	public void render(int xOffset, int yOffset) {
-		renderTown(xOffset, yOffset);
-	}
-	private void renderTown(int xOffset, int yOffset) {
 		int townId = this.townType.getValue() + 1;
 		AtlasRegion town = ResourceLookup.getInstance().getTextureAtlas("world_atlas.atlas").findRegion("town", townId);
 		TileRenderer.renderTile(town, this.positionX, this.positionY, xOffset, yOffset);
@@ -64,13 +61,14 @@ public class TownEntity {
 	public void renderUI() {
 		if(this.townInterface != null && this.townInterface.getIsShowing()) {
 			this.townInterface.render();
+			this.tradeInterface.render();
 		}
 	}
 	public void updateUI() {
-		if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
+		if(Gdx.input.isKeyJustPressed(Input.Keys.E)){
 			this.townInterface.setIsShowing(true);
 		}
-		if(Gdx.input.isButtonJustPressed(Input.Buttons.RIGHT)){
+		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
 			this.townInterface.setIsShowing(false);
 		}
 	}
@@ -79,6 +77,7 @@ public class TownEntity {
 	}
 	public void updateEntityUI(TownEntity entity) {
 		this.townInterface.setTownEntity(entity);
+		this.tradeInterface.update();
 	}
 	
 	public boolean update() {
